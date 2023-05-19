@@ -1,0 +1,102 @@
+{{define "title"}}
+Atridad Lahiji // Root
+{{end}}
+
+{{define "headercontent"}}
+Atridad Lahiji // Root
+{{end}}
+
+{{define "head"}}
+<link rel="stylesheet" href="/public/css/styles.home.css" />
+{{end}}
+
+{{define "main"}}
+  <h1 class="text-4xl font-extrabold text-white sm:text-8xl">
+    Hi, I&apos;m <span
+      class="bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent"
+      >Atridad</span
+    >
+  </h1>
+
+  <h2 class="text-2xl font-extrabold tracking-tight text-white sm:text-[2rem]">
+    I&apos;m a full stack developer who builds cool things for the web.
+  </h2>
+
+  <span>
+    <h2 class="mb-2 text-xl text-white sm:text-[1.5rem]">Places I exist:</h2>
+    <div
+      class="flex flex-row flex-wrap items-center justify-center gap-4 text-center"
+    >
+      {{range .Socials}}
+        {{if eq .Name "Spotify"}}
+          <div class="indicator indicator-top indicator-end">
+            <div hx-ext="sse" sse-connect="/api/sse?channel=spotify" sse-swap="message">
+              <span class="link link-hover link-success" hx-get="/api/nowplaying" hx-trigger="load" hx-swap="self">
+              </span>
+            </div>
+
+            <a class="fill-white hover:fill-pink-500"
+                href={{.Href}} target="_blank" rel="me" aria-label={{.Name}}>
+                {{.Icon}}
+            </a>
+          </div>
+        {{else}}
+            <a class="fill-white hover:fill-pink-500"
+                href={{.Href}} target="_blank" rel="me" aria-label={{.Name}}>
+                {{.Icon}}
+            </a>
+        {{end}}
+      {{end}}
+    </div>
+  </span>
+
+
+  <span>
+    <h2 class="mb-2 text-xl text-white sm:text-[1.5rem]">Stuff I Use:</h2>
+    <div
+      class="flex flex-row flex-wrap items-center justify-center gap-4 text-center"
+    >
+      {{range .Tech}}
+        <a class="fill-white hover:fill-pink-500"
+            href={{.Href}} target="_blank" rel="me" aria-label={{.Name}}>
+          {{.Icon}}
+        </a>
+      {{end}}
+    </div>
+  </span>
+
+  <div class="flex flex-row flex-wrap gap-2">
+    <a
+      class="btn btn-primary btn-outline btn-md lg:btn-lg"
+      href={{.ContractLink}}
+      target="_blank"
+      rel="noreferrer"
+    >
+      Contract Me
+    </a>
+
+    <a
+      class="btn btn-primary btn-outline btn-md lg:btn-lg"
+      href={{.ResumeURL}}
+      target="_blank"
+      rel="noreferrer"
+    >
+      Resumé
+    </a>
+
+    <a
+      class="btn btn-primary btn-outline btn-md lg:btn-lg"
+      href={{.SupportLink}}
+      target="_blank"
+      rel="noreferrer"
+    >
+      Support 🩵
+    </a>
+  </div>
+{{end}}
+
+{{define "foot"}}
+<script src="/public/js/htmx.base.js"></script>
+<script src="/public/js/htmx.sse.js"></script>
+<script src="/public/js/hyperscript.js"></script>
+{{end}}

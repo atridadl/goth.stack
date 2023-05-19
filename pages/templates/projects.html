@@ -1,0 +1,22 @@
+{{define "title"}}
+Atridad Lahiji // Projects
+{{end}}
+
+{{define "headercontent"}}
+Atridad Lahiji // Projects
+{{end}}
+
+{{define "head"}}
+<link rel="stylesheet" href="/public/css/styles.projects.css" />
+{{end}}
+
+{{define "main"}}
+<section class="flex flex-row flex-wrap gap-2 justify-center align-middle">
+  {{range .Projects}}
+  {{template "cardlinks" .}}
+  {{end}}
+</section>
+{{end}}
+
+{{define "foot"}}
+{{end}}
