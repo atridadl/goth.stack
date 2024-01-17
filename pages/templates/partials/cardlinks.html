@@ -1,0 +1,45 @@
+{{define "cardlinks"}}
+<div class="card card-compact w-64 bg-secondary shadow-xl">
+    <div class="card-body text-base-100 flex flex-col">
+      <h2 class="card-title text-base-100">{{.Name}}</h2>
+
+      {{if .Description}}
+        <p>{{.Description}}</p>
+      {{end}}
+
+      {{if .Date}}
+        <p>
+          <div class="flex flex-row flex-wrap items-center gap-1 text-md">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock-4"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            {{.Date}}
+          </div>
+        </p> 
+      {{end}}
+
+      {{if .Tags}}
+        <div class="flex flex-row flex-wrap text-center items-center justify-center gap-1">
+          {{range .Tags}}
+            <div class="badge badge-accent">#{{.}}</div>
+          {{end}}
+        </div>
+      {{end}}
+
+      {{if .Href}}
+        <div class="card-actions justify-end">
+          <a
+            role="button"
+            href={{.Href}}
+            aria-label={{.Name}}
+            class="btn btn-circle btn-base-100 text-primary hover:btn-accent hover:text-neutral"
+          >
+            {{if eq true .Internal}}
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            {{else}}
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            {{end}}
+          </a>
+        </div>
+      {{end}}
+    </div>
+</div>
+{{end}}

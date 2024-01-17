@@ -1,0 +1,18 @@
+{{define "title"}}
+GOTH // Blog
+{{end}}
+
+{{define "headercontent"}}
+GOTH // Blog
+{{end}}
+
+{{define "head"}}
+{{end}}
+
+{{define "main"}}
+<section class="flex flex-row flex-wrap gap-2 justify-center align-middle">
+  {{range .Posts}}
+  {{template "cardlinks" .}}
+  {{end}}
+</section>
+{{end}}
