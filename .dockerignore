@@ -1,0 +1,11 @@
+# flyctl launch added from .gitignore
+**/node_modules
+**/goth.stack
+**/.env
+**/airbin
+**/tmp
+**/*.rdb
+
+# flyctl launch added from stylegen/node_modules/tailwindcss/stubs/.gitignore
+!stylegen/node_modules/tailwindcss/stubs/**/*
+fly.toml
