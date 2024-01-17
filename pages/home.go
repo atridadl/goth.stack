@@ -9,11 +9,9 @@ import (
 )
 
 type HomeProps struct {
-	Socials      []lib.IconLink
-	Tech         []lib.IconLink
-	ContractLink string
-	ResumeURL    string
-	SupportLink  string
+	Socials []lib.IconLink
+	Tech    []lib.IconLink
+	// Add more props here
 }
 
 func Home(c echo.Context) error {
@@ -54,11 +52,9 @@ func Home(c echo.Context) error {
 	}
 
 	props := HomeProps{
-		Socials:      socials,
-		Tech:         tech,
-		ContractLink: "mailto:contract@atri.dad",
-		ResumeURL:    "https://srv.atri.dad/Atridad_Lahiji_Resume.pdf",
-		SupportLink:  "https://donate.stripe.com/8wMeVF25c78L0V2288",
+		Socials: socials,
+		Tech:    tech,
+		// Add more props here
 	}
 
 	templates := []string{
