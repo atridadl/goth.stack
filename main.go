@@ -52,7 +52,7 @@ func main() {
 	e.GET("/", pages.Home)
 	e.GET("/blog", pages.Blog)
 	e.GET("/post/:post", pages.Post)
-	e.GET("/sse", pages.SSEDemo)
+	e.GET("/ssedemo", pages.SSEDemo)
 
 	// API Routes:
 	e.GET("/api/ping", api.Ping)
