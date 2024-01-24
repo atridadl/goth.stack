@@ -2,7 +2,7 @@
 Go + Templates + HTMX
 
 ## Stack:
-- Backend: Golang + Echo
+- Backend: Golang + BunRouter
 - Rendering: Golang templates
 - Style: TailwindCSS + DaisyUI
 - Content format: Markdown
@@ -19,5 +19,5 @@ Go + Templates + HTMX
 5. Run ```air``` to start the dev server
 
 ## Tests
-Without Coverage: `go test atri.dad/lib`
-With Coverage: `go test atri.dad/lib -cover`
+Without Coverage: `go test goth.stack/lib`
+With Coverage: `go test goth.stack/lib -cover`

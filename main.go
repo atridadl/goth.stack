@@ -2,14 +2,17 @@ package main
 
 import (
 	"io"
+	"log"
+	"net/http"
 	"text/template"
 
 	"goth.stack/api"
+	"goth.stack/middleware"
 	"goth.stack/pages"
 
 	"github.com/joho/godotenv"
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+	"github.com/uptrace/bunrouter"
+	"github.com/uptrace/bunrouter/extra/reqlog"
 )
 
 // Template Type
@@ -18,7 +21,7 @@ type Template struct {
 }
 
 // Template Render function
-func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
+func (t *Template) Render(w io.Writer, name string, data interface{}) error {
 	return t.templates.ExecuteTemplate(w, name, data)
 }
 
@@ -26,38 +29,31 @@ func main() {
 	godotenv.Load(".env")
 
 	// Initialize router
-	e := echo.New()
+	router := bunrouter.New(
+		bunrouter.Use(reqlog.NewMiddleware(), middleware.RequestID, middleware.SecureHeaders),
+	)
 
-	// Middlewares
-	e.Pre(middleware.RemoveTrailingSlash())
-	e.Use(middleware.Logger())
-	e.Use(middleware.RequestID())
-	e.Use(middleware.Secure())
-	e.Use(middleware.GzipWithConfig(middleware.GzipConfig{
-		Level: 5,
-	}))
-	e.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(69)))
+	// Static server
+	fs := http.FileServer(http.Dir("public"))
 
-	// Template Parsing
-	t := &Template{
-		templates: template.Must(template.ParseGlob("pages/**/*.html")),
-	}
-
-	e.Renderer = t
-
-	// // Static server
-	e.Static("/public", "public")
+	router.GET("/public/*filepath", func(w http.ResponseWriter, req bunrouter.Request) error {
+		http.StripPrefix("/public", fs).ServeHTTP(w, req.Request)
+		return nil
+	})
 
 	// Page routes
-	e.GET("/", pages.Home)
-	e.GET("/blog", pages.Blog)
-	e.GET("/post/:post", pages.Post)
-	e.GET("/ssedemo", pages.SSEDemo)
+	pageGroup := router.NewGroup("", bunrouter.Use(middleware.NewRateLimiter(50).RateLimit))
+	pageGroup.GET("/", pages.Home)
+	pageGroup.GET("/blog", pages.Blog)
+	pageGroup.GET("/post/:post", pages.Post)
+	pageGroup.GET("/sse", pages.SSEDemo)
 
 	// API Routes:
-	e.GET("/api/ping", api.Ping)
-	e.GET("/api/ssedemo", api.SSEDemo)
-	e.POST("/api/sendsse", api.SSEDemoSend)
+	apiGroup := router.NewGroup("/api")
+	apiGroup.GET("/ping", api.Ping)
 
-	e.Logger.Fatal(e.Start(":3000"))
+	apiGroup.GET("/sse", api.SSE)
+	apiGroup.POST("/sendsse", api.SSEDemoSend)
+
+	log.Fatal(http.ListenAndServe(":3000", router))
 }

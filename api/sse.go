@@ -3,26 +3,28 @@ package api
 import (
 	"fmt"
 	"log"
+	"net/http"
 	"time"
 
-	"github.com/labstack/echo/v4"
+	"github.com/uptrace/bunrouter"
 	"goth.stack/lib"
 )
 
-func SSEDemo(c echo.Context) error {
-	channel := c.QueryParam("channel")
+func SSE(w http.ResponseWriter, req bunrouter.Request) error {
+	queryParams := req.URL.Query()
+	channel := queryParams.Get("channel")
 	if channel == "" {
 		channel = "default"
 	}
 
 	// Use the request context, which is cancelled when the client disconnects
-	ctx := c.Request().Context()
+	ctx := req.Context()
 
 	pubsub, _ := lib.Subscribe(lib.RedisClient, channel)
 
-	c.Response().Header().Set(echo.HeaderContentType, "text/event-stream")
-	c.Response().Header().Set(echo.HeaderConnection, "keep-alive")
-	c.Response().Header().Set(echo.HeaderCacheControl, "no-cache")
+	w.Header().Set("Content-Type", "text/event-stream")
+	w.Header().Set("Connection", "keep-alive")
+	w.Header().Set("Cache-Control", "no-cache")
 
 	// Create a ticker that fires every 15 seconds
 	ticker := time.NewTicker(30 * time.Second)
@@ -35,10 +37,10 @@ func SSEDemo(c echo.Context) error {
 			return nil
 		case <-ticker.C:
 			// Every 30 seconds, send a comment to keep the connection alive
-			if _, err := c.Response().Write([]byte(": keep-alive\n\n")); err != nil {
+			if _, err := w.Write([]byte(": keep-alive\n\n")); err != nil {
 				return err
 			}
-			c.Response().Flush()
+			w.(http.Flusher).Flush()
 		default:
 			// Handle incoming messages as before
 			msg, err := pubsub.ReceiveMessage(ctx)
@@ -48,11 +50,11 @@ func SSEDemo(c echo.Context) error {
 			}
 
 			data := fmt.Sprintf("data: %s\n\n", msg.Payload)
-			if _, err := c.Response().Write([]byte(data)); err != nil {
+			if _, err := w.Write([]byte(data)); err != nil {
 				return err
 			}
 
-			c.Response().Flush()
+			w.(http.Flusher).Flush()
 		}
 	}
 }

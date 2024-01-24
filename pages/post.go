@@ -7,7 +7,7 @@ import (
 	"os"
 
 	chromahtml "github.com/alecthomas/chroma/v2/formatters/html"
-	"github.com/labstack/echo/v4"
+	"github.com/uptrace/bunrouter"
 	"github.com/yuin/goldmark"
 	highlighting "github.com/yuin/goldmark-highlighting/v2"
 	"gopkg.in/yaml.v2"
@@ -21,24 +21,27 @@ type PostProps struct {
 	Tags    []string
 }
 
-func Post(c echo.Context) error {
-	postName := c.ParamValues()[0]
+func Post(w http.ResponseWriter, req bunrouter.Request) error {
+	postName := req.Param("post")
 
 	filePath := "content/" + postName + ".md"
 
 	md, err := os.ReadFile(filePath)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusNotFound, "This post does not exist!")
+		http.Error(w, "This post does not exist!", http.StatusNotFound)
+		return nil
 	}
 
 	frontmatterBytes, content, err := lib.SplitFrontmatter(md)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "There was an issue rendering this post!")
+		http.Error(w, "There was an issue rendering this post!", http.StatusInternalServerError)
+		return nil
 	}
 
 	var frontmatter lib.FrontMatter
 	if err := yaml.Unmarshal(frontmatterBytes, &frontmatter); err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "There was an issue rendering this post!")
+		http.Error(w, "There was an issue rendering this post!", http.StatusInternalServerError)
+		return nil
 	}
 
 	var buf bytes.Buffer
@@ -54,7 +57,8 @@ func Post(c echo.Context) error {
 	)
 
 	if err := markdown.Convert(content, &buf); err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "There was an issue rendering this post!")
+		http.Error(w, "There was an issue rendering this post!", http.StatusInternalServerError)
+		return nil
 	}
 
 	props := PostProps{
@@ -64,17 +68,9 @@ func Post(c echo.Context) error {
 		Tags:    frontmatter.Tags,
 	}
 
-	templates := []string{
-		"./pages/templates/layouts/post.html",
-		"./pages/templates/partials/header.html",
-		"./pages/templates/partials/navitems.html",
-		"./pages/templates/post.html",
-	}
+	// Specify the partials used by this page
+	partials := []string{"header", "navitems"}
 
-	ts, err := template.ParseFiles(templates...)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "There was an issue rendering this post!")
-	}
-
-	return ts.ExecuteTemplate(c.Response().Writer, "post", props)
+	// Render the template
+	return lib.RenderTemplate(w, "post", partials, props)
 }

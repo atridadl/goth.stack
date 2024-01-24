@@ -1,25 +1,32 @@
 package api
 
 import (
+	"encoding/json"
 	"net/http"
 
-	"github.com/labstack/echo/v4"
+	"github.com/uptrace/bunrouter"
 	"goth.stack/lib"
 )
 
-func SSEDemoSend(c echo.Context) error {
-	channel := c.QueryParam("channel")
+func SSEDemoSend(w http.ResponseWriter, req bunrouter.Request) error {
+	// Get query parameters
+	queryParams := req.URL.Query()
+
+	// Get channel from query parameters
+	channel := queryParams.Get("channel")
 	if channel == "" {
 		channel = "default"
 	}
 
 	// Get message from query parameters, form value, or request body
-	message := c.QueryParam("message")
+	message := queryParams.Get("message")
 	if message == "" {
-		message = c.FormValue("message")
+		message = req.PostFormValue("message")
 		if message == "" {
 			var body map[string]string
-			if err := c.Bind(&body); err != nil {
+			err := json.NewDecoder(req.Body).Decode(&body)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusBadRequest)
 				return err
 			}
 			message = body["message"]
@@ -27,11 +34,18 @@ func SSEDemoSend(c echo.Context) error {
 	}
 
 	if message == "" {
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "message parameter is required"})
+		errMsg := map[string]string{"error": "message parameter is required"}
+		errMsgBytes, _ := json.Marshal(errMsg)
+		http.Error(w, string(errMsgBytes), http.StatusBadRequest)
+		return nil
 	}
 
 	// Send message
 	lib.SendSSE("default", message)
 
-	return c.JSON(http.StatusOK, map[string]string{"status": "message sent"})
+	statusMsg := map[string]string{"status": "message sent"}
+	statusMsgBytes, _ := json.Marshal(statusMsg)
+	w.Write(statusMsgBytes)
+
+	return nil
 }

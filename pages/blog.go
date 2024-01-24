@@ -1,7 +1,6 @@
 package pages
 
 import (
-	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -9,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/labstack/echo/v4"
+	"github.com/uptrace/bunrouter"
 	"goth.stack/lib"
 )
 
@@ -17,18 +16,20 @@ type BlogProps struct {
 	Posts []lib.CardLink
 }
 
-func Blog(c echo.Context) error {
+func Blog(w http.ResponseWriter, req bunrouter.Request) error {
 	var posts []lib.CardLink
 
 	files, err := os.ReadDir("./content/")
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "There was an finding posts!")
+		http.Error(w, "There was an issue finding posts!", http.StatusInternalServerError)
+		return nil
 	}
 
 	for _, file := range files {
 		frontMatter, err := lib.ExtractFrontMatter(file, "./content/")
 		if err != nil {
-			return echo.NewHTTPError(http.StatusInternalServerError, "There was an issue rendering the posts!")
+			http.Error(w, "There was an issue rendering the posts!", http.StatusInternalServerError)
+			return nil
 		}
 
 		frontMatter.Href = "post/" + strings.TrimSuffix(file.Name(), ".md")
@@ -57,19 +58,9 @@ func Blog(c echo.Context) error {
 		Posts: posts,
 	}
 
-	templates := []string{
-		"./pages/templates/layouts/base.html",
-		"./pages/templates/partials/header.html",
-		"./pages/templates/partials/navitems.html",
-		"./pages/templates/partials/cardlinks.html",
-		"./pages/templates/blog.html",
-	}
+	// Specify the partials used by this page
+	partials := []string{"header", "navitems", "cardlinks"}
 
-	ts, err := template.ParseFiles(templates...)
-	if err != nil {
-		log.Print(err.Error())
-		return err
-	}
-
-	return ts.ExecuteTemplate(c.Response().Writer, "base", props)
+	// Render the template
+	return lib.RenderTemplate(w, "base", partials, props)
 }
