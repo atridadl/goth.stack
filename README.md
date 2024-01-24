@@ -1,4 +1,7 @@
+![goth](https://github.com/atridadl/goth.stack/assets/88056492/7c973d6a-fcf3-41fd-a119-1a81da52b342)
 # GOTH Stack
+
+
 Go + Templates + HTMX
 
 ## Stack:
