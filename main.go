@@ -42,7 +42,8 @@ func main() {
 	})
 
 	// Page routes
-	pageGroup := router.NewGroup("", bunrouter.Use(bmw.NewRateLimiter(50).RateLimit))
+	rateLimiter := bmw.NewRateLimiter(50)
+	pageGroup := router.NewGroup("", bunrouter.Use(rateLimiter.RateLimit))
 	pageGroup.GET("/", pages.Home)
 	pageGroup.GET("/blog", pages.Blog)
 	pageGroup.GET("/post/:post", pages.Post)
