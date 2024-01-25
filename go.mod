@@ -24,7 +24,7 @@ require (
 
 require (
 	github.com/alecthomas/assert/v2 v2.4.1
-	github.com/atridadl/bmw v0.2.0
+	github.com/atridadl/bmw v0.4.0
 	github.com/go-redis/redismock/v9 v9.2.0
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/joho/godotenv v1.5.1

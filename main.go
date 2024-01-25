@@ -9,7 +9,7 @@ import (
 	"goth.stack/api"
 	"goth.stack/pages"
 
-	bmw "github.com/atridadl/bmw"
+	"github.com/atridadl/bmw"
 	"github.com/joho/godotenv"
 	"github.com/uptrace/bunrouter"
 	"github.com/uptrace/bunrouter/extra/reqlog"
