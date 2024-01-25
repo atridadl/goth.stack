@@ -24,14 +24,15 @@ require (
 
 require (
 	github.com/alecthomas/assert/v2 v2.4.1
+	github.com/atridadl/bunrouter.middleware v0.2.0
 	github.com/go-redis/redismock/v9 v9.2.0
-	github.com/google/uuid v1.6.0
+	github.com/google/uuid v1.6.0 // indirect
 	github.com/joho/godotenv v1.5.1
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/redis/go-redis/v9 v9.4.0
 	github.com/resendlabs/resend-go v1.7.0
-	github.com/unrolled/secure v1.14.0
+	github.com/unrolled/secure v1.14.0 // indirect
 	github.com/uptrace/bunrouter v1.0.21
 	github.com/uptrace/bunrouter/extra/reqlog v1.0.21
 	github.com/yuin/goldmark v1.6.0
