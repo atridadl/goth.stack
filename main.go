@@ -9,7 +9,7 @@ import (
 	"goth.stack/api"
 	"goth.stack/pages"
 
-	bunroutermiddleware "github.com/atridadl/bunrouter.middleware"
+	bmw "github.com/atridadl/bmw"
 	"github.com/joho/godotenv"
 	"github.com/uptrace/bunrouter"
 	"github.com/uptrace/bunrouter/extra/reqlog"
@@ -30,7 +30,7 @@ func main() {
 
 	// Initialize router
 	router := bunrouter.New(
-		bunrouter.Use(reqlog.NewMiddleware(), bunroutermiddleware.RequestID, bunroutermiddleware.SecureHeaders),
+		bunrouter.Use(reqlog.NewMiddleware(), bmw.RequestID, bmw.SecureHeaders),
 	)
 
 	// Static server
@@ -42,7 +42,7 @@ func main() {
 	})
 
 	// Page routes
-	pageGroup := router.NewGroup("", bunrouter.Use(bunroutermiddleware.NewRateLimiter(50).RateLimit))
+	pageGroup := router.NewGroup("", bunrouter.Use(bmw.NewRateLimiter(50).RateLimit))
 	pageGroup.GET("/", pages.Home)
 	pageGroup.GET("/blog", pages.Blog)
 	pageGroup.GET("/post/:post", pages.Post)
