@@ -8,6 +8,8 @@ github.com/alecthomas/repr v0.3.0 h1:NeYzUPfjjlqHY4KtzgKJiWd6sVq2eNUPTi34PiFGjY8
 github.com/alecthomas/repr v0.3.0/go.mod h1:Fr0507jx4eOXV7AlPV6AVZLYrLIuIeSOWtW57eE/O/4=
 github.com/atridadl/bmw v0.1.0 h1:PoW3s5n6IAmsfOyZpWSvMgaTCe9r7lttyuIbXXIMc3E=
 github.com/atridadl/bmw v0.1.0/go.mod h1:LHXSDXKjmOvPXgDv32CDeu1nTmT+luIF+YR9xmqPvEw=
+github.com/atridadl/bmw v0.2.0 h1:KkJAax25xMs9QEoTWMLrE77PBKf7p4SO7C9O19awynI=
+github.com/atridadl/bmw v0.2.0/go.mod h1:LHXSDXKjmOvPXgDv32CDeu1nTmT+luIF+YR9xmqPvEw=
 github.com/bsm/ginkgo/v2 v2.12.0 h1:Ny8MWAHyOepLGlLKYmXG4IEkioBysk6GpaRTLC8zwWs=
 github.com/bsm/ginkgo/v2 v2.12.0/go.mod h1:SwYbGRRDovPVboqFv0tPTcG1sN61LM1Z4ARdbAV9g4c=
 github.com/bsm/gomega v1.27.10 h1:yeMWxP2pV2fG3FgAODIY8EiRE3dy0aeFYt4l7wh6yKA=
