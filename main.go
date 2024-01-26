@@ -2,47 +2,52 @@ package main
 
 import (
 	"log"
-	"net/http"
+
+	"github.com/joho/godotenv"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 
 	"goth.stack/api"
 	"goth.stack/pages"
-
-	"github.com/atridadl/bmw"
-	"github.com/joho/godotenv"
-	"github.com/uptrace/bunrouter"
-	"github.com/uptrace/bunrouter/extra/reqlog"
 )
 
 func main() {
-	godotenv.Load(".env")
+	// Load environment variables
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 
-	// Initialize router
-	router := bunrouter.New(
-		bunrouter.Use(reqlog.NewMiddleware(), bmw.RequestID, bmw.SecureHeaders),
-	)
+	// Initialize Echo router
+	e := echo.New()
+
+	// Middleware
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+	e.Pre(middleware.RemoveTrailingSlash())
+	e.Use(middleware.Logger())
+	e.Use(middleware.RequestID())
+	e.Use(middleware.Secure())
+	e.Use(middleware.GzipWithConfig(middleware.GzipConfig{
+		Level: 5,
+	}))
+	e.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(50)))
 
 	// Static server
-	fs := http.FileServer(http.Dir("public"))
-
-	router.GET("/public/*filepath", func(w http.ResponseWriter, req bunrouter.Request) error {
-		http.StripPrefix("/public", fs).ServeHTTP(w, req.Request)
-		return nil
-	})
+	e.Static("/public", "public")
 
 	// Page routes
-	rateLimiter := bmw.NewRateLimiter(50)
-	pageGroup := router.NewGroup("", bunrouter.Use(rateLimiter.RateLimit))
-	pageGroup.GET("/", pages.Home)
-	pageGroup.GET("/blog", pages.Blog)
-	pageGroup.GET("/post/:post", pages.Post)
-	pageGroup.GET("/sse", pages.SSEDemo)
+	e.GET("/", pages.Home)
+	e.GET("/blog", pages.Blog)
+	e.GET("/post/:post", pages.Post)
+	e.GET("/sse", pages.SSEDemo)
 
 	// API Routes:
-	apiGroup := router.NewGroup("/api")
+	apiGroup := e.Group("/api")
 	apiGroup.GET("/ping", api.Ping)
-
 	apiGroup.GET("/sse", api.SSE)
 	apiGroup.POST("/sendsse", api.SSEDemoSend)
 
-	log.Fatal(http.ListenAndServe(":3000", router))
+	// Start server
+	e.Logger.Fatal(e.Start(":3000"))
 }

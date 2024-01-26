@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/uptrace/bunrouter"
+	"github.com/labstack/echo/v4"
 	"goth.stack/lib"
 )
 
@@ -16,19 +16,19 @@ type BlogProps struct {
 	Posts []lib.CardLink
 }
 
-func Blog(w http.ResponseWriter, req bunrouter.Request) error {
+func Blog(c echo.Context) error {
 	var posts []lib.CardLink
 
 	files, err := os.ReadDir("./content/")
 	if err != nil {
-		http.Error(w, "There was an issue finding posts!", http.StatusInternalServerError)
+		http.Error(c.Response().Writer, "There was an issue finding posts!", http.StatusInternalServerError)
 		return nil
 	}
 
 	for _, file := range files {
 		frontMatter, err := lib.ExtractFrontMatter(file, "./content/")
 		if err != nil {
-			http.Error(w, "There was an issue rendering the posts!", http.StatusInternalServerError)
+			http.Error(c.Response().Writer, "There was an issue rendering the posts!", http.StatusInternalServerError)
 			return nil
 		}
 
@@ -62,5 +62,5 @@ func Blog(w http.ResponseWriter, req bunrouter.Request) error {
 	partials := []string{"header", "navitems", "cardlinks"}
 
 	// Render the template
-	return lib.RenderTemplate(w, "base", partials, props)
+	return lib.RenderTemplate(c.Response().Writer, "base", partials, props)
 }

@@ -2,9 +2,8 @@ package pages
 
 import (
 	"html/template"
-	"net/http"
 
-	"github.com/uptrace/bunrouter"
+	"github.com/labstack/echo/v4"
 	"goth.stack/lib"
 )
 
@@ -16,7 +15,7 @@ type HomeProps struct {
 	SupportLink  string
 }
 
-func Home(w http.ResponseWriter, req bunrouter.Request) error {
+func Home(c echo.Context) error {
 	socials := []lib.IconLink{
 		{
 			Name: "Email",
@@ -135,6 +134,5 @@ func Home(w http.ResponseWriter, req bunrouter.Request) error {
 	partials := []string{"header", "navitems"}
 
 	// Render the template
-	w.WriteHeader(http.StatusOK)
-	return lib.RenderTemplate(w, "base", partials, props)
+	return lib.RenderTemplate(c.Response().Writer, "base", partials, props)
 }

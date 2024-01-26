@@ -3,11 +3,9 @@ package api
 import (
 	"net/http"
 
-	"github.com/uptrace/bunrouter"
+	"github.com/labstack/echo/v4"
 )
 
-func Ping(w http.ResponseWriter, req bunrouter.Request) error {
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Pong!"))
-	return nil
+func Ping(c echo.Context) error {
+	return c.String(http.StatusOK, "Pong!")
 }

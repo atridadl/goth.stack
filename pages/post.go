@@ -7,7 +7,7 @@ import (
 	"os"
 
 	chromahtml "github.com/alecthomas/chroma/v2/formatters/html"
-	"github.com/uptrace/bunrouter"
+	"github.com/labstack/echo/v4"
 	"github.com/yuin/goldmark"
 	highlighting "github.com/yuin/goldmark-highlighting/v2"
 	"gopkg.in/yaml.v2"
@@ -21,26 +21,26 @@ type PostProps struct {
 	Tags    []string
 }
 
-func Post(w http.ResponseWriter, req bunrouter.Request) error {
-	postName := req.Param("post")
+func Post(c echo.Context) error {
+	postName := c.Param("post")
 
 	filePath := "content/" + postName + ".md"
 
 	md, err := os.ReadFile(filePath)
 	if err != nil {
-		http.Error(w, "This post does not exist!", http.StatusNotFound)
+		http.Error(c.Response().Writer, "This post does not exist!", http.StatusNotFound)
 		return nil
 	}
 
 	frontmatterBytes, content, err := lib.SplitFrontmatter(md)
 	if err != nil {
-		http.Error(w, "There was an issue rendering this post!", http.StatusInternalServerError)
+		http.Error(c.Response().Writer, "There was an issue rendering this post!", http.StatusInternalServerError)
 		return nil
 	}
 
 	var frontmatter lib.FrontMatter
 	if err := yaml.Unmarshal(frontmatterBytes, &frontmatter); err != nil {
-		http.Error(w, "There was an issue rendering this post!", http.StatusInternalServerError)
+		http.Error(c.Response().Writer, "There was an issue rendering this post!", http.StatusInternalServerError)
 		return nil
 	}
 
@@ -57,7 +57,7 @@ func Post(w http.ResponseWriter, req bunrouter.Request) error {
 	)
 
 	if err := markdown.Convert(content, &buf); err != nil {
-		http.Error(w, "There was an issue rendering this post!", http.StatusInternalServerError)
+		http.Error(c.Response().Writer, "There was an issue rendering this post!", http.StatusInternalServerError)
 		return nil
 	}
 
@@ -72,5 +72,5 @@ func Post(w http.ResponseWriter, req bunrouter.Request) error {
 	partials := []string{"header", "navitems"}
 
 	// Render the template
-	return lib.RenderTemplate(w, "post", partials, props)
+	return lib.RenderTemplate(c.Response().Writer, "base", partials, props)
 }

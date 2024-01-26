@@ -1,16 +1,14 @@
 package pages
 
 import (
-	"net/http"
-
-	"github.com/uptrace/bunrouter"
+	"github.com/labstack/echo/v4"
 	"goth.stack/lib"
 )
 
-func SSEDemo(w http.ResponseWriter, req bunrouter.Request) error {
+func SSEDemo(c echo.Context) error {
 	// Specify the partials used by this page
 	partials := []string{"header", "navitems"}
 
 	// Render the template
-	return lib.RenderTemplate(w, "base", partials, nil)
+	return lib.RenderTemplate(c.Response().Writer, "base", partials, nil)
 }
