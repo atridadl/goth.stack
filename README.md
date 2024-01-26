@@ -5,7 +5,7 @@
 Go + Templates + HTMX
 
 ## Stack:
-- Backend: Golang + BunRouter
+- Backend: Golang + Echo
 - Rendering: Golang templates
 - Style: TailwindCSS + DaisyUI
 - Content format: Markdown
