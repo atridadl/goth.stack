@@ -56,5 +56,5 @@ func main() {
 	apiGroup.GET("/sse", api.SSE)
 	apiGroup.POST("/sendsse", api.SSEDemoSend)
 
-	log.Fatal(http.ListenAndServe("127.0.0.1:3000", router))
+	log.Fatal(http.ListenAndServe(":3000", router))
 }
