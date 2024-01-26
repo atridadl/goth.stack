@@ -1,10 +1,8 @@
 package main
 
 import (
-	"io"
 	"log"
 	"net/http"
-	"text/template"
 
 	"goth.stack/api"
 	"goth.stack/pages"
@@ -14,16 +12,6 @@ import (
 	"github.com/uptrace/bunrouter"
 	"github.com/uptrace/bunrouter/extra/reqlog"
 )
-
-// Template Type
-type Template struct {
-	templates *template.Template
-}
-
-// Template Render function
-func (t *Template) Render(w io.Writer, name string, data interface{}) error {
-	return t.templates.ExecuteTemplate(w, name, data)
-}
 
 func main() {
 	godotenv.Load(".env")
