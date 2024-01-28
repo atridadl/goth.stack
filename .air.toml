@@ -5,8 +5,8 @@ tmp_dir = "tmp"
 [build]
   args_bin = []
   bin = "./tmp/main"
-  pre_cmd = ["cd stylegen && bun i"]
-  cmd = "go build -o ./tmp/main . & cd stylegen && bun gen"
+  pre_cmd = []
+  cmd = "go build -o ./tmp/main . & cd stylegen && ./gen.sh"
   delay = 1000
   exclude_dir = ["assets", "tmp", "vendor", "testdata", "stylegen"]
   exclude_file = []

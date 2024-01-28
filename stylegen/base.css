@@ -1,12 +1,15 @@
+@import url('daisyui.css') layer(base);
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html,
-container,
-body {
-  height: 100%;
-  width: 100%;
-  overflow-y: auto;
-  position: fixed;
+@layer base {
+  html,
+  container,
+  body {
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    position: fixed;
+  }
 }
