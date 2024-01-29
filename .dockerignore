@@ -5,7 +5,7 @@
 **/airbin
 **/tmp
 **/*.rdb
+stylegen
 
 # flyctl launch added from stylegen/node_modules/tailwindcss/stubs/.gitignore
-!stylegen/node_modules/tailwindcss/stubs/**/*
 fly.toml
