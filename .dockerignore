@@ -3,5 +3,5 @@
 **/airbin
 **/tmp
 **/*.rdb
-stylegen
+**/stylegen/**
 fly.toml
