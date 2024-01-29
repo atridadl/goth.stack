@@ -20,27 +20,34 @@ case $OS in
     ;;
 esac
 
-case $ARCH in
-  "x86_64")
-    ARCH="x64"
-    ;;
-  "arm64")
-    ARCH="arm64"
-    ;;
-  *)
-    echo "Unsupported architecture: $ARCH"
-    exit 1
-    ;;
-esac
-
-# Construct the binary file name
-BINARY="./tw/${OS}-${ARCH}"
-if [ "$OS" = "windows" ]; then
-  BINARY="${BINARY}.exe"
+# For macOS, we use a single binary called 'macos'
+if [ "$OS" = "macos" ]; then
+  BINARY="./tw/macos"
 else
-  # Set execute permissions on the binary
-  chmod +x $BINARY
+  case $ARCH in
+    "x86_64")
+      ARCH="x64"
+      ;;
+    "arm64")
+      ARCH="arm64"
+      ;;
+    *)
+      echo "Unsupported architecture: $ARCH"
+      exit 1
+      ;;
+  esac
+
+  # Construct the binary file name
+  BINARY="./tw/${OS}-${ARCH}"
+  if [ "$OS" = "windows" ]; then
+    BINARY="${BINARY}.exe"
+  else
+    # Set execute permissions on the binary
+    chmod +x $BINARY
+  fi
 fi
+
+echo $BINARY
 
 # Run the binary
 $BINARY build -i ./base.css -o ../public/css/styles.css --minify
