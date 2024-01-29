@@ -7,11 +7,10 @@ Go + Templates + HTMX
 ## Stack:
 - Backend: Golang + Echo
 - Rendering: Golang templates
-- Style: TailwindCSS + DaisyUI
+- Style: TailwindCSS + DaisyUI (No JS Needed)
 - Content format: Markdown
 
 ## Requirements:
-- Bun (only to build styles)
 - Golang 1.21.6 or newer
 
 ## Instructions:
