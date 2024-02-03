@@ -5,8 +5,6 @@ GOTH // SSE <div class="badge badge-accent">DEMO</div>
 {{end}}
 
 {{define "head"}}
-  <script src="/public/js/htmx.min.js"></script>
-  <script src="/public/js/htmx.sse.js"></script>
 {{end}}
 
 {{define "main"}}
@@ -26,4 +24,9 @@ GOTH // SSE <div class="badge badge-accent">DEMO</div>
 
     <button type="submit" class="btn btn-primary">Send Event</button>
   </form>
+{{end}}
+
+{{define "foot"}}
+<script src="/public/js/htmx.min.js"></script>
+<script src="/public/js/htmx.sse.js"></script>
 {{end}}
