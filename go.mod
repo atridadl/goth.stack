@@ -35,7 +35,7 @@ require (
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/redis/go-redis/v9 v9.4.0
 	github.com/resendlabs/resend-go v1.7.0
-	github.com/yuin/goldmark v1.6.0
+	github.com/yuin/goldmark v1.7.0
 	github.com/yuin/goldmark-highlighting/v2 v2.0.0-20230729083705-37449abec8cc
 	golang.org/x/net v0.20.0 // indirect
 	golang.org/x/sys v0.16.0 // indirect
