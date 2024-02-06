@@ -1,6 +1,9 @@
 package main
 
 import (
+	"context"
+	"flag"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -9,12 +12,31 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 
 	"goth.stack/api"
+	"goth.stack/lib"
 	"goth.stack/pages"
 )
 
 func main() {
 	// Load environment variables
 	godotenv.Load(".env")
+
+	// Initialize Redis client
+	lib.RedisClient = lib.NewRedisClient()
+
+	// Test Redis connection
+	_, err := lib.RedisClient.Ping(context.Background()).Result()
+
+	// Initialize pubsub
+	var pubSub lib.PubSub
+	if err != nil {
+		log.Printf("Failed to connect to Redis: %v", err)
+		log.Println("Falling back to LocalPubSub")
+		pubSub = &lib.LocalPubSub{}
+	} else {
+		pubSub = &lib.RedisPubSub{
+			Client: lib.RedisClient,
+		}
+	}
 
 	// Initialize Echo router
 	e := echo.New()
@@ -23,7 +45,6 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.Pre(middleware.RemoveTrailingSlash())
-	e.Use(middleware.Logger())
 	e.Use(middleware.RequestID())
 	e.Use(middleware.Secure())
 	e.Use(middleware.GzipWithConfig(middleware.GzipConfig{
@@ -43,14 +64,25 @@ func main() {
 	// API Routes:
 	apiGroup := e.Group("/api")
 	apiGroup.GET("/ping", api.Ping)
-	apiGroup.GET("/sse", api.SSE)
-	apiGroup.POST("/sendsse", api.SSEDemoSend)
+
+	apiGroup.GET("/sse", func(c echo.Context) error {
+		return api.SSE(c, pubSub)
+	})
+
+	apiGroup.POST("/sendsse", func(c echo.Context) error {
+		return api.SSEDemoSend(c, pubSub)
+	})
+
+	// Parse command-line arguments for IP and port
+	ip := flag.String("ip", "", "IP address to bind the server to")
+	port := flag.String("port", "3000", "Port to bind the server to")
+	flag.Parse()
 
 	// Start server with HTTP/2 support
 	s := &http.Server{
-		Addr:    ":3000",
+		Addr:    fmt.Sprintf("%s:%s", *ip, *port),
 		Handler: e,
 	}
 	e.Logger.Fatal(e.StartServer(s))
-	log.Println("Server started on port 3000")
+	log.Println("Server started on port", *port)
 }

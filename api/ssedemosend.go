@@ -7,7 +7,7 @@ import (
 	"goth.stack/lib"
 )
 
-func SSEDemoSend(c echo.Context) error {
+func SSEDemoSend(c echo.Context, pubSub lib.PubSub) error {
 	channel := c.QueryParam("channel")
 	if channel == "" {
 		channel = "default"
@@ -30,8 +30,7 @@ func SSEDemoSend(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "message parameter is required"})
 	}
 
-	// Send message
-	lib.SendSSE("default", message)
+	lib.SendSSE(c.Request().Context(), pubSub, "default", message)
 
 	return c.JSON(http.StatusOK, map[string]string{"status": "message sent"})
 }

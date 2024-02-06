@@ -9,11 +9,18 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
-var ctx = context.Background()
-
 var RedisClient *redis.Client
 
-func NewClient() *redis.Client {
+type RedisPubSubMessage struct {
+	pubsub *redis.PubSub
+}
+
+// RedisPubSub is a Redis implementation of the PubSub interface.
+type RedisPubSub struct {
+	Client *redis.Client
+}
+
+func NewRedisClient() *redis.Client {
 	if RedisClient != nil {
 		return RedisClient
 	}
@@ -32,23 +39,29 @@ func NewClient() *redis.Client {
 	return RedisClient
 }
 
-func Publish(client *redis.Client, channel string, message string) error {
-	if client == nil {
-		client = NewClient()
+func (m *RedisPubSubMessage) ReceiveMessage(ctx context.Context) (*Message, error) {
+	msg, err := m.pubsub.ReceiveMessage(ctx)
+	if err != nil {
+		return nil, err
 	}
 
-	return client.Publish(ctx, channel, message).Err()
+	return &Message{Payload: msg.Payload}, nil
 }
 
-func Subscribe(client *redis.Client, channel string) (*redis.PubSub, string) {
-	if client == nil {
-		client = NewClient()
+func (ps *RedisPubSub) SubscribeToChannel(channel string) (PubSubMessage, error) {
+	pubsub := ps.Client.Subscribe(context.Background(), channel)
+	_, err := pubsub.Receive(context.Background())
+	if err != nil {
+		return nil, err
 	}
 
-	pubsub := client.Subscribe(ctx, channel)
-	_, err := pubsub.Receive(ctx)
+	return &RedisPubSubMessage{pubsub: pubsub}, nil
+}
+
+func (r *RedisPubSub) PublishToChannel(channel string, message string) error {
+	err := r.Client.Publish(context.Background(), channel, message).Err()
 	if err != nil {
-		log.Fatalf("Error receiving subscription: %v", err)
+		return err
 	}
-	return pubsub, channel
+	return nil
 }

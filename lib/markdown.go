@@ -12,6 +12,12 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+type FrontMatter struct {
+	Name string
+	Date string
+	Tags []string
+}
+
 func ExtractFrontMatter(file os.DirEntry, dir string) (CardLink, error) {
 	f, err := os.Open(dir + file.Name())
 	if err != nil {
