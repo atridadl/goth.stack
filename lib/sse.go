@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/labstack/echo/v4"
+	"goth.stack/lib/pubsub"
 )
 
 type SSEServerType struct {
@@ -58,7 +59,7 @@ func (s *SSEServerType) ClientCount(channel string) int {
 	return len(s.clients[channel])
 }
 
-func SendSSE(ctx context.Context, messageBroker PubSub, channel string, message string) error {
+func SendSSE(ctx context.Context, messageBroker pubsub.PubSub, channel string, message string) error {
 	// Create a channel to receive an error from the goroutine
 	errCh := make(chan error, 1)
 
@@ -102,7 +103,7 @@ func CreateTickerAndKeepAlive(c echo.Context, duration time.Duration) *time.Tick
 	return ticker
 }
 
-func HandleIncomingMessages(c echo.Context, pubsub PubSubMessage, client chan string) {
+func HandleIncomingMessages(c echo.Context, pubsub pubsub.PubSubMessage, client chan string) {
 	for {
 		select {
 		case <-c.Request().Context().Done():

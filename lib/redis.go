@@ -7,6 +7,7 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/redis/go-redis/v9"
+	"goth.stack/lib/pubsub"
 )
 
 var RedisClient *redis.Client
@@ -39,16 +40,16 @@ func NewRedisClient() *redis.Client {
 	return RedisClient
 }
 
-func (m *RedisPubSubMessage) ReceiveMessage(ctx context.Context) (*Message, error) {
+func (m *RedisPubSubMessage) ReceiveMessage(ctx context.Context) (*pubsub.Message, error) {
 	msg, err := m.pubsub.ReceiveMessage(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	return &Message{Payload: msg.Payload}, nil
+	return &pubsub.Message{Payload: msg.Payload}, nil
 }
 
-func (ps *RedisPubSub) SubscribeToChannel(channel string) (PubSubMessage, error) {
+func (ps *RedisPubSub) SubscribeToChannel(channel string) (pubsub.PubSubMessage, error) {
 	pubsub := ps.Client.Subscribe(context.Background(), channel)
 	_, err := pubsub.Receive(context.Background())
 	if err != nil {

@@ -13,6 +13,7 @@ import (
 
 	"goth.stack/api"
 	"goth.stack/lib"
+	"goth.stack/lib/pubsub"
 	"goth.stack/pages"
 )
 
@@ -27,7 +28,7 @@ func main() {
 	_, err := lib.RedisClient.Ping(context.Background()).Result()
 
 	// Initialize pubsub
-	var pubSub lib.PubSub
+	var pubSub pubsub.PubSub
 	if err != nil {
 		log.Printf("Failed to connect to Redis: %v", err)
 		log.Println("Falling back to LocalPubSub")

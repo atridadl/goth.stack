@@ -5,9 +5,10 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"goth.stack/lib"
+	"goth.stack/lib/pubsub"
 )
 
-func SSEDemoSend(c echo.Context, pubSub lib.PubSub) error {
+func SSEDemoSend(c echo.Context, pubSub pubsub.PubSub) error {
 	channel := c.QueryParam("channel")
 	if channel == "" {
 		channel = "default"

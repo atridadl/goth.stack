@@ -28,6 +28,7 @@ require (
 
 require (
 	github.com/alecthomas/assert/v2 v2.4.1
+	github.com/fatih/color v1.16.0
 	github.com/go-redis/redismock/v9 v9.2.0
 	github.com/joho/godotenv v1.5.1
 	github.com/labstack/echo/v4 v4.11.4

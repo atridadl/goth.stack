@@ -7,9 +7,10 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"goth.stack/lib"
+	"goth.stack/lib/pubsub"
 )
 
-func SSE(c echo.Context, pubSub lib.PubSub) error {
+func SSE(c echo.Context, pubSub pubsub.PubSub) error {
 	if pubSub == nil {
 		return errors.New("pubSub is nil")
 	}
