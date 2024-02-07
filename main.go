@@ -14,6 +14,7 @@ import (
 	"goth.stack/api"
 	"goth.stack/lib"
 	"goth.stack/lib/pubsub"
+	"goth.stack/lib/pubsub/adapters"
 	"goth.stack/pages"
 )
 
@@ -22,20 +23,20 @@ func main() {
 	godotenv.Load(".env")
 
 	// Initialize Redis client
-	lib.RedisClient = lib.NewRedisClient()
+	adapters.RedisClient = adapters.NewRedisClient()
 
 	// Test Redis connection
-	_, err := lib.RedisClient.Ping(context.Background()).Result()
+	_, err := adapters.RedisClient.Ping(context.Background()).Result()
 
 	// Initialize pubsub
 	var pubSub pubsub.PubSub
 	if err != nil {
-		log.Printf("Failed to connect to Redis: %v", err)
-		log.Println("Falling back to LocalPubSub")
-		pubSub = &lib.LocalPubSub{}
+		lib.LogWarning.Printf("\n[PUBSUB/INIT] Failed to connect to Redis: %v\n", err)
+		lib.LogWarning.Printf("\n[PUBSUB/INIT] Falling back to LocalPubSub\n")
+		pubSub = &adapters.LocalPubSub{}
 	} else {
-		pubSub = &lib.RedisPubSub{
-			Client: lib.RedisClient,
+		pubSub = &adapters.RedisPubSub{
+			Client: adapters.RedisClient,
 		}
 	}
 

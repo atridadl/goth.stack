@@ -1,10 +1,11 @@
-package lib
+package adapters
 
 import (
 	"context"
 	"sync"
 	"time"
 
+	"goth.stack/lib"
 	"goth.stack/lib/pubsub"
 )
 
@@ -28,22 +29,22 @@ func (ps *LocalPubSub) SubscribeToChannel(channel string) (pubsub.PubSubMessage,
 	ch := make(chan pubsub.Message, 100)
 	ps.subscribers[channel] = append(ps.subscribers[channel], ch)
 
-	LogInfo.Printf("[PUBSUB/LOCAL] Subscribed to channel %s", channel)
+	lib.LogInfo.Printf("[PUBSUB/LOCAL] Subscribed to channel %s\n", channel)
 
 	return &LocalPubSubMessage{messages: ch}, nil
 }
 
 func (ps *LocalPubSub) PublishToChannel(channel string, message string) error {
-	ps.lock.Lock()         // Changed from RLock to Lock
-	defer ps.lock.Unlock() // Changed from RUnlock to Unlock
+	ps.lock.Lock()
+	defer ps.lock.Unlock()
 
 	if subscribers, ok := ps.subscribers[channel]; ok {
-		LogInfo.Printf("[PUBSUB/LOCAL] Publishing message to channel %s: %s", channel, message)
+		lib.LogInfo.Printf("\n[PUBSUB/LOCAL] Publishing message to channel %s: %s\n", channel, message)
 		for _, ch := range subscribers {
 			ch <- pubsub.Message{Payload: message}
 		}
 	} else {
-		LogWarning.Printf("[PUBSUB/LOCAL] No subscribers for channel %s", channel)
+		lib.LogWarning.Printf("\n[PUBSUB/LOCAL] No subscribers for channel %s\n", channel)
 	}
 
 	return nil
@@ -57,7 +58,7 @@ func (m *LocalPubSubMessage) ReceiveMessage(ctx context.Context) (*pubsub.Messag
 			return nil, ctx.Err()
 		case msg := <-m.messages:
 			// A message has been received. Send it to the client.
-			LogInfo.Printf("[PUBSUB/LOCAL] Received message: %s", msg.Payload)
+			lib.LogInfo.Printf("\n[PUBSUB/LOCAL] Received message: %s\n", msg.Payload)
 			return &msg, nil
 		case <-time.After(30 * time.Second):
 			// No message has been received for 30 seconds. Send a keep-alive message.

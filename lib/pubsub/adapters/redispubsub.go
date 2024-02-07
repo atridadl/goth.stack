@@ -1,12 +1,12 @@
-package lib
+package adapters
 
 import (
 	"context"
 	"os"
 
-	"github.com/fatih/color"
 	"github.com/joho/godotenv"
 	"github.com/redis/go-redis/v9"
+	"goth.stack/lib"
 	"goth.stack/lib/pubsub"
 )
 
@@ -30,7 +30,7 @@ func NewRedisClient() *redis.Client {
 	redis_host := os.Getenv("REDIS_HOST")
 	redis_password := os.Getenv("REDIS_PASSWORD")
 
-	LogInfo.Printf("Connecting to Redis at %s", redis_host)
+	lib.LogInfo.Printf("\n[PUBSUB/REDIS]Connecting to Redis at %s\n", redis_host)
 	RedisClient = redis.NewClient(&redis.Options{
 		Addr:     redis_host,
 		Password: redis_password,
@@ -45,7 +45,7 @@ func (m *RedisPubSubMessage) ReceiveMessage(ctx context.Context) (*pubsub.Messag
 	if err != nil {
 		return nil, err
 	}
-	LogInfo.Printf("[PUBSUB/REDIS] Received message: %s", msg.Payload)
+	lib.LogInfo.Printf("\n[PUBSUB/REDIS] Received message: %s\n", msg.Payload)
 	return &pubsub.Message{Payload: msg.Payload}, nil
 }
 
@@ -55,7 +55,7 @@ func (ps *RedisPubSub) SubscribeToChannel(channel string) (pubsub.PubSubMessage,
 	if err != nil {
 		return nil, err
 	}
-	LogInfo.Printf("[PUBSUB/REDIS] Subscribed to channel %s", channel)
+	lib.LogInfo.Printf("\n[PUBSUB/REDIS] Subscribed to channel %s\n", channel)
 
 	return &RedisPubSubMessage{pubsub: pubsub}, nil
 }
@@ -65,6 +65,6 @@ func (r *RedisPubSub) PublishToChannel(channel string, message string) error {
 	if err != nil {
 		return err
 	}
-	color.Cyan("[PUBSUB/REDIS] Publishing message to channel %s: %s", channel, message)
+	lib.LogInfo.Printf("\n[PUBSUB/REDIS] Publishing message to channel %s: %s\n", channel, message)
 	return nil
 }
