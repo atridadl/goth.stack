@@ -35,36 +35,21 @@ func (ps *LocalPubSub) SubscribeToChannel(channel string) (pubsub.PubSubMessage,
 }
 
 func (ps *LocalPubSub) PublishToChannel(channel string, message string) error {
+	subscribers, ok := ps.subscribers[channel]
+	if !ok {
+		lib.LogWarning.Printf("\n[PUBSUB/LOCAL] No subscribers for channel %s\n", channel)
+		return nil
+	}
+
 	ps.lock.Lock()
 	defer ps.lock.Unlock()
 
-	if subscribers, ok := ps.subscribers[channel]; ok {
-		lib.LogInfo.Printf("\n[PUBSUB/LOCAL] Publishing message to channel %s: %s\n", channel, message)
-		for _, ch := range subscribers {
-			ch <- pubsub.Message{Payload: message}
-		}
-	} else {
-		lib.LogWarning.Printf("\n[PUBSUB/LOCAL] No subscribers for channel %s\n", channel)
+	lib.LogInfo.Printf("\n[PUBSUB/LOCAL] Publishing message to channel %s: %s\n", channel, message)
+	for _, ch := range subscribers {
+		ch <- pubsub.Message{Payload: message}
 	}
 
 	return nil
-}
-
-func (m *LocalPubSubMessage) ReceiveMessage(ctx context.Context) (*pubsub.Message, error) {
-	for {
-		select {
-		case <-ctx.Done():
-			// The client has disconnected. Stop trying to send messages.
-			return nil, ctx.Err()
-		case msg := <-m.messages:
-			// A message has been received. Send it to the client.
-			lib.LogInfo.Printf("\n[PUBSUB/LOCAL] Received message: %s\n", msg.Payload)
-			return &msg, nil
-		case <-time.After(30 * time.Second):
-			// No message has been received for 30 seconds. Send a keep-alive message.
-			return &pubsub.Message{Payload: "keep-alive"}, nil
-		}
-	}
 }
 
 func (ps *LocalPubSub) UnsubscribeFromChannel(channel string, ch <-chan pubsub.Message) {
@@ -84,5 +69,22 @@ func (ps *LocalPubSub) UnsubscribeFromChannel(channel string, ch <-chan pubsub.M
 		delete(ps.subscribers, channel)
 	} else {
 		ps.subscribers[channel] = subscribers
+	}
+}
+
+func (m *LocalPubSubMessage) ReceiveMessage(ctx context.Context) (*pubsub.Message, error) {
+	for {
+		select {
+		case <-ctx.Done():
+			// The client has disconnected. Stop trying to send messages.
+			return nil, ctx.Err()
+		case msg := <-m.messages:
+			// A message has been received. Send it to the client.
+			lib.LogInfo.Printf("\n[PUBSUB/LOCAL] Received message: %s\n", msg.Payload)
+			return &msg, nil
+		case <-time.After(30 * time.Second):
+			// No message has been received for 30 seconds. Send a keep-alive message.
+			return &pubsub.Message{Payload: "keep-alive"}, nil
+		}
 	}
 }
