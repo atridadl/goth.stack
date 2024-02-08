@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -13,16 +12,16 @@ import (
 )
 
 func RSSFeedHandler(c echo.Context) error {
-	feed := &feeds.Feed{
-		Title: "Goth Stack Sample Blog",
-		Link:  &feeds.Link{Href: "https://goth-stack.fly.dev/"},
-	}
-
 	files, err := os.ReadDir("./content/")
 
 	protocol := "http"
 	if c.Request().TLS != nil {
 		protocol = "https"
+	}
+
+	feed := &feeds.Feed{
+		Title: "GOTH Stack Demo Blog",
+		Link:  &feeds.Link{Href: protocol + "://" + c.Request().Host + "/api/rss"},
 	}
 
 	if err != nil {
@@ -47,6 +46,5 @@ func RSSFeedHandler(c echo.Context) error {
 	}
 
 	rss, _ := feed.ToRss()
-	fmt.Println("RSS:", rss)
-	return c.String(http.StatusOK, rss)
+	return c.Blob(http.StatusOK, "application/rss+xml", []byte(rss))
 }
