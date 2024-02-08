@@ -62,11 +62,11 @@ func main() {
 	e.GET("/blog", pages.Blog)
 	e.GET("/post/:post", pages.Post)
 	e.GET("/sse", pages.SSEDemo)
+	e.GET("/rss", pages.RSSFeedHandler)
 
 	// API Routes:
 	apiGroup := e.Group("/api")
 	apiGroup.GET("/ping", api.Ping)
-	apiGroup.GET("/rss", api.RSSFeedHandler)
 
 	apiGroup.GET("/sse", func(c echo.Context) error {
 		return api.SSE(c, pubSub)
