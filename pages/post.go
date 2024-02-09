@@ -3,14 +3,15 @@ package pages
 import (
 	"bytes"
 	"html/template"
+	"io/fs"
 	"net/http"
-	"os"
 
 	chromahtml "github.com/alecthomas/chroma/v2/formatters/html"
 	"github.com/labstack/echo/v4"
 	"github.com/yuin/goldmark"
 	highlighting "github.com/yuin/goldmark-highlighting/v2"
 	"gopkg.in/yaml.v2"
+	contentfs "goth.stack/content"
 	"goth.stack/lib"
 )
 
@@ -24,10 +25,11 @@ type PostProps struct {
 func Post(c echo.Context) error {
 	postName := c.Param("post")
 
-	filePath := "content/" + postName + ".md"
+	filePath := postName + ".md"
 
-	md, err := os.ReadFile(filePath)
+	md, err := fs.ReadFile(contentfs.FS, filePath)
 	if err != nil {
+		println(err.Error())
 		http.Error(c.Response().Writer, "This post does not exist!", http.StatusNotFound)
 		return nil
 	}
