@@ -74,5 +74,5 @@ func Post(c echo.Context) error {
 	partials := []string{"header", "navitems"}
 
 	// Render the template
-	return lib.RenderTemplate(c.Response().Writer, "base", partials, props)
+	return lib.RenderTemplate(c.Response().Writer, "post", partials, props)
 }
