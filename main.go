@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"embed"
 	"flag"
 	"fmt"
 	"log"
@@ -17,6 +18,9 @@ import (
 	"goth.stack/lib/pubsub/adapters"
 	"goth.stack/pages"
 )
+
+//go:embed public/*
+var PublicFS embed.FS
 
 func main() {
 	// Load environment variables
@@ -55,7 +59,8 @@ func main() {
 	e.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(50)))
 
 	// Static server
-	e.Static("/public", "public")
+	fs := http.FS(PublicFS)
+	e.GET("/public/*", echo.WrapHandler(http.FileServer(fs)))
 
 	// Page routes
 	e.GET("/", pages.Home)

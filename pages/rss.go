@@ -1,18 +1,19 @@
 package pages
 
 import (
+	"io/fs"
 	"net/http"
-	"os"
 	"strings"
 	"time"
 
 	"github.com/gorilla/feeds"
 	"github.com/labstack/echo/v4"
+	contentfs "goth.stack/content"
 	"goth.stack/lib"
 )
 
 func RSSFeedHandler(c echo.Context) error {
-	files, err := os.ReadDir("./content/")
+	files, err := fs.ReadDir(contentfs.FS, ".")
 
 	protocol := "http"
 	if c.Request().TLS != nil {
@@ -30,19 +31,22 @@ func RSSFeedHandler(c echo.Context) error {
 	}
 
 	for _, file := range files {
-		frontMatter, err := lib.ExtractFrontMatter(file, "./content/")
-		if err != nil {
-			http.Error(c.Response().Writer, "There was an issue rendering the posts!", http.StatusInternalServerError)
-			return nil
+		if !file.IsDir() && strings.HasSuffix(file.Name(), ".md") {
+
+			frontMatter, err := lib.ExtractFrontMatter(file, contentfs.FS)
+			if err != nil {
+				http.Error(c.Response().Writer, "There was an issue rendering the posts!", http.StatusInternalServerError)
+				return nil
+			}
+
+			date, _ := time.Parse("January 2 2006", frontMatter.Date)
+
+			feed.Add(&feeds.Item{
+				Title:   frontMatter.Name,
+				Link:    &feeds.Link{Href: protocol + "://" + c.Request().Host + "/post/" + strings.TrimSuffix(file.Name(), ".md")},
+				Created: date,
+			})
 		}
-
-		date, _ := time.Parse("January 2 2006", frontMatter.Date)
-
-		feed.Add(&feeds.Item{
-			Title:   frontMatter.Name,
-			Link:    &feeds.Link{Href: protocol + "://" + c.Request().Host + "/post/" + strings.TrimSuffix(file.Name(), ".md")},
-			Created: date,
-		})
 	}
 
 	rss, _ := feed.ToRss()

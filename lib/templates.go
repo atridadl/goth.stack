@@ -6,6 +6,10 @@ import (
 	"net/http"
 	"path/filepath"
 	"runtime"
+
+	templatefs "goth.stack/pages/templates"
+
+	
 )
 
 func RenderTemplate(w http.ResponseWriter, layout string, partials []string, props interface{}) error {
@@ -16,15 +20,15 @@ func RenderTemplate(w http.ResponseWriter, layout string, partials []string, pro
 
 	// Build the list of templates
 	templates := []string{
-		"./pages/templates/layouts/" + layout + ".html",
-		"./pages/templates/" + page + ".html",
+		"layouts/" + layout + ".html",
+		page + ".html",
 	}
 	for _, partial := range partials {
-		templates = append(templates, "./pages/templates/partials/"+partial+".html")
+		templates = append(templates, "partials/"+partial+".html")
 	}
 
 	// Parse the templates
-	ts, err := template.ParseFiles(templates...)
+	ts, err := template.ParseFS(templatefs.FS, templates...)
 	if err != nil {
 		log.Print(err.Error())
 		return err

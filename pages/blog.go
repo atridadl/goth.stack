@@ -1,14 +1,15 @@
 package pages
 
 import (
+	"io/fs"
 	"log"
 	"net/http"
-	"os"
 	"sort"
 	"strings"
 	"time"
 
 	"github.com/labstack/echo/v4"
+	contentfs "goth.stack/content"
 	"goth.stack/lib"
 )
 
@@ -19,23 +20,27 @@ type BlogProps struct {
 func Blog(c echo.Context) error {
 	var posts []lib.CardLink
 
-	files, err := os.ReadDir("./content/")
+	files, err := fs.ReadDir(contentfs.FS, ".")
 	if err != nil {
+		log.Println(err)
 		http.Error(c.Response().Writer, "There was an issue finding posts!", http.StatusInternalServerError)
 		return nil
 	}
 
 	for _, file := range files {
-		frontMatter, err := lib.ExtractFrontMatter(file, "./content/")
-		if err != nil {
-			http.Error(c.Response().Writer, "There was an issue rendering the posts!", http.StatusInternalServerError)
-			return nil
+		if !file.IsDir() && strings.HasSuffix(file.Name(), ".md") {
+			frontMatter, err := lib.ExtractFrontMatter(file, contentfs.FS)
+			if err != nil {
+				log.Println(err)
+				http.Error(c.Response().Writer, "There was an issue rendering the posts!", http.StatusInternalServerError)
+				return nil
+			}
+
+			frontMatter.Href = "post/" + strings.TrimSuffix(file.Name(), ".md")
+			frontMatter.Internal = true
+
+			posts = append(posts, frontMatter)
 		}
-
-		frontMatter.Href = "post/" + strings.TrimSuffix(file.Name(), ".md")
-		frontMatter.Internal = true
-
-		posts = append(posts, frontMatter)
 	}
 
 	const layout = "January 2 2006"

@@ -5,7 +5,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"os"
+	"io/fs"
 	"strings"
 
 	"github.com/yuin/goldmark"
@@ -18,8 +18,8 @@ type FrontMatter struct {
 	Tags []string
 }
 
-func ExtractFrontMatter(file os.DirEntry, dir string) (CardLink, error) {
-	f, err := os.Open(dir + file.Name())
+func ExtractFrontMatter(file fs.DirEntry, contentFS fs.FS) (CardLink, error) {
+	f, err := contentFS.Open(file.Name())
 	if err != nil {
 		return CardLink{}, fmt.Errorf("failed to open file: %w", err)
 	}
