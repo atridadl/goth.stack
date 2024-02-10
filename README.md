@@ -11,7 +11,7 @@ Go + Templates + HTMX
 - Content format: Markdown
 
 ## Requirements:
-- Golang 1.21.6 or newer
+- Golang 1.22.0
 
 ## Instructions:
 1. Run go get
