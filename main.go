@@ -72,6 +72,7 @@ func main() {
 	// API Routes:
 	apiGroup := e.Group("/api")
 	apiGroup.GET("/ping", api.Ping)
+	apiGroup.GET("/post/copy", api.PostCopy)
 
 	apiGroup.GET("/sse", func(c echo.Context) error {
 		return api.SSE(c, pubSub)

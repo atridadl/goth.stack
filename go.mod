@@ -1,6 +1,6 @@
 module goth.stack
 
-go 1.22.0
+go 1.22
 
 require github.com/alecthomas/chroma/v2 v2.12.0
 
