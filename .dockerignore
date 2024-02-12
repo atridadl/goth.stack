@@ -5,3 +5,4 @@
 **/*.rdb
 **/stylegen/**
 fly.toml
+tailwind.config.*.js

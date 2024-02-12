@@ -3,3 +3,4 @@ goth.stack
 airbin
 tmp/
 *.rdb
+tailwind.config.*.js

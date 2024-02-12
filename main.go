@@ -60,7 +60,10 @@ func main() {
 
 	// Static server
 	fs := http.FS(PublicFS)
-	e.GET("/public/*", echo.WrapHandler(http.FileServer(fs)))
+	e.GET("/public/*", func(c echo.Context) error {
+		c.Response().Header().Set("Cache-Control", "public, max-age=3600")
+		return echo.WrapHandler(http.FileServer(fs))(c)
+	})
 
 	// Page routes
 	e.GET("/", pages.Home)
