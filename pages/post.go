@@ -50,7 +50,7 @@ func Post(c echo.Context) error {
 	markdown := goldmark.New(
 		goldmark.WithExtensions(
 			highlighting.NewHighlighting(
-				highlighting.WithStyle("dracula"),
+				highlighting.WithStyle("fruity"),
 				highlighting.WithFormatOptions(
 					chromahtml.WithLineNumbers(true),
 				),
