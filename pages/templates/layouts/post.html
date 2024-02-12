@@ -1,4 +1,5 @@
 {{define "post"}}
+<!DOCTYPE html>
 <html lang="en" data-theme="night">
   <head>
     <meta charset="UTF-8" />
@@ -37,8 +38,8 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
           </div>
           
-          <button id="copyButton" hx-get="/api/post/copy" hx-swap="innerHTML" hx-trigger="click delay:3s" _='on click put #svgContainer.innerHTML into me.innerHTML then call navigator.clipboard.writeText(window.location.href)'>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+          <button id="copyButton" aria-label="Copy Link to Post" hx-get="/api/post/copy" hx-swap="innerHTML" hx-trigger="click delay:3s" _='on click put #svgContainer.innerHTML into me.innerHTML then call navigator.clipboard.writeText(window.location.href)'>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
           </button>
 
           <a href="/blog" class="btn btn-primary btn-outline">
