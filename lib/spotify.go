@@ -55,7 +55,7 @@ func CurrentlyPlayingTrackSSE(ctx context.Context, pubSub pubsub.PubSub) error {
 	}
 
 	if playing.Item != nil && playing.Playing {
-		SendSSE(ctx, pubSub, "spotify", `<div class="indicator-item badge badge-success"><a _="on mouseover put '🎧 Listening to `+playing.Item.Name+" by "+playing.Item.Artists[0].Name+` 🎧' into my.textContent on mouseout put '🎧' into my.textContent" href="`+playing.Item.ExternalURLs["spotify"]+`" rel="noreferrer" target="_blank">🎧</a></div>`)
+		SendSSE(ctx, pubSub, "spotify", `<div class="indicator-item badge badge-success"><a _="on mouseover put '🔥 Listening to `+playing.Item.Name+" by "+playing.Item.Artists[0].Name+` 🔥' into my.textContent on mouseout put '🔥' into my.textContent" href="`+playing.Item.ExternalURLs["spotify"]+`" rel="noreferrer" target="_blank">🔥</a></div>`)
 	} else {
 		SendSSE(ctx, pubSub, "spotify", "")
 	}
