@@ -23,6 +23,8 @@ esac
 # For macOS, we use a single binary called 'macos'
 if [ "$OS" = "macos" ]; then
   BINARY="./tw/macos"
+  # Set execute permissions on the binary
+  chmod +x $BINARY
 else
   case $ARCH in
     "x86_64")
