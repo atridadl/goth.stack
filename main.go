@@ -64,28 +64,8 @@ func main() {
 	deploymentTime := fmt.Sprintf("%d", time.Now().UnixNano())
 
 	// Static server
-	fs := http.FS(PublicFS)
-	e.GET("/public/*", func(c echo.Context) error {
-		// Generate an ETag based on the deployment time
-		eTag := fmt.Sprintf(`W/"%s"`, deploymentTime)
-
-		// Set the ETag header
-		c.Response().Header().Set("ETag", eTag)
-
-		// Set the Cache-Control header
-		c.Response().Header().Set("Cache-Control", "public, max-age=3600")
-
-		// Check the file extension and set the Content-Type header accordingly
-		ext := filepath.Ext(c.Param("*"))
-		switch ext {
-		case ".css":
-			c.Response().Header().Set("Content-Type", "text/css; charset=utf-8")
-		case ".js":
-			c.Response().Header().Set("Content-Type", "application/javascript; charset=utf-8")
-		}
-
-		return echo.WrapHandler(http.FileServer(fs))(c)
-	})
+ fs := http.FS(PublicFS)
+	e.GET("/public/*", echo.WrapHandler(http.FileServer(fs)))
 
 	// Page routes
 	e.GET("/", pages.Home)
