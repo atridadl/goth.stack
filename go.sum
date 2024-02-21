@@ -63,8 +63,6 @@ github.com/mattn/go-isatty v0.0.20 h1:xfD0iDuEKnDkl03q4limB+vH+GxLEtL/jb4xVJSWWE
 github.com/mattn/go-isatty v0.0.20/go.mod h1:W+V8PltTTMOvKvAeJH7IuucS94S2C6jfK/D7dTCTo3Y=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
-github.com/redis/go-redis/v9 v9.5.0 h1:Xe9TKMmZv939gwTBcvc0n1tzK5l2re0pKw/W/tN3amw=
-github.com/redis/go-redis/v9 v9.5.0/go.mod h1:hdY0cQFCN4fnSYT6TkisLufl/4W5UIXyv0b/CLO2V2M=
 github.com/redis/go-redis/v9 v9.5.1 h1:H1X4D3yHPaYrkL5X06Wh6xNVM/pX0Ft4RV0vMGvLBh8=
 github.com/redis/go-redis/v9 v9.5.1/go.mod h1:hdY0cQFCN4fnSYT6TkisLufl/4W5UIXyv0b/CLO2V2M=
 github.com/resendlabs/resend-go v1.7.0 h1:DycOqSXtw2q7aB+Nt9DDJUDtaYcrNPGn1t5RFposas0=
@@ -78,8 +76,6 @@ github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcU
 github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
 github.com/stripe/stripe-go/v76 v76.17.0 h1:/a5B21zNiSjx283dvmhclH410+RaefkYo0Qxvk/odS0=
 github.com/stripe/stripe-go/v76 v76.17.0/go.mod h1:rw1MxjlAKKcZ+3FOXgTHgwiOa2ya6CPq6ykpJ0Q6Po4=
-github.com/svix/svix-webhooks v1.18.0 h1:gcMrTpbyyN/Y2XP+8dEpQCDrMKu63R+a4W+EENpOUZA=
-github.com/svix/svix-webhooks v1.18.0/go.mod h1:qGeiECF5WRQElyfF0i2CqUtWk2GQJTgL+EJZ/WRCxok=
 github.com/svix/svix-webhooks v1.19.0 h1:Uu9FsV0uMeo4E0d7c/gc+CwqIlc17ZvDEjTh5ts5jS0=
 github.com/svix/svix-webhooks v1.19.0/go.mod h1:qGeiECF5WRQElyfF0i2CqUtWk2GQJTgL+EJZ/WRCxok=
 github.com/valyala/bytebufferpool v1.0.0 h1:GqA5TC/0021Y/b9FG4Oi9Mr3q7XYx6KllzawFIhcdPw=
