@@ -1,0 +1,22 @@
+{{define "title"}}
+Atridad Lahiji // Tools
+{{end}}
+
+{{define "headercontent"}}
+Atridad Lahiji // Tools
+{{end}}
+
+{{define "head"}}
+<link rel="stylesheet" href="/public/css/styles.tools.css" />
+{{end}}
+
+{{define "main"}}
+<section class="flex flex-row flex-wrap gap-2 justify-center align-middle">
+  {{range .Tools}}
+  {{template "cardlinks" .}}
+  {{end}}
+</section>
+{{end}}
+
+{{define "foot"}}
+{{end}}

@@ -1,0 +1,31 @@
+{{define "title"}}
+Atridad Lahiji // Tools // Resizer
+{{end}}
+
+{{define "headercontent"}}
+Atridad Lahiji // Tools // Resizer
+{{end}}
+
+{{define "head"}}
+<link rel="stylesheet" href="/public/css/styles.resize.css" />
+{{end}}
+
+{{define "main"}}
+<h2 class="text-2xl font-extrabold tracking-tight text-white sm:text-[2rem]">Image Resizer</h2>
+<form action="/api/resize" method="post" enctype="multipart/form-data" class="flex-col flex gap-4">
+	Select image to resize:
+	<input type="file" name="image" accept="image/*"
+		class="file-input file-input-bordered file-input-secondary w-full max-w-xs" required />
+	<br>
+	New width (px):
+	<input type="number" id="newWidth" name="width" min="1" class="input input-bordered w-full max-w-xs" required>
+	<br>
+	New height (px):
+	<input type="number" id="newHeight" name="height" min="1" class="input input-bordered w-full max-w-xs" required>
+	<br>
+	<button type="submit" class="btn btn-secondary">Resize Image</button>
+</form>
+{{end}}
+
+{{define "foot"}}
+{{end}}
