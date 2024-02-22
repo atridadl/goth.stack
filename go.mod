@@ -30,6 +30,7 @@ require (
 
 require (
 	github.com/alecthomas/assert/v2 v2.4.1 // indirect
+	github.com/anthonynsimon/bild v0.13.0
 	github.com/clerkinc/clerk-sdk-go v1.49.0
 	github.com/fatih/color v1.16.0
 	github.com/gorilla/feeds v1.1.2
@@ -40,7 +41,7 @@ require (
 	github.com/redis/go-redis/v9 v9.5.1
 	github.com/resendlabs/resend-go v1.7.0
 	github.com/stripe/stripe-go/v76 v76.17.0
-	github.com/svix/svix-webhooks v1.19.0
+	github.com/svix/svix-webhooks v1.20.0
 	github.com/yuin/goldmark v1.7.0
 	github.com/yuin/goldmark-highlighting/v2 v2.0.0-20230729083705-37449abec8cc
 	github.com/zmb3/spotify v1.3.0

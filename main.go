@@ -72,6 +72,8 @@ func main() {
 	e.GET("/post/:post", pages.Post)
 	e.GET("/sse", pages.SSEDemo)
 	e.GET("/rss", pages.RSSFeedHandler)
+	e.GET("/tools", pages.Tools)
+	e.GET("/tools/resize", pages.Resize)
 
 	// API Routes:
 	apiGroup := e.Group("/api")
@@ -89,6 +91,7 @@ func main() {
 	})
 
 	apiGroup.GET("/nowplaying", api.NowPlayingHandler)
+	apiGroup.POST("/resize", api.ResizeHandler)
 
 	// Webhook Routes:
 	webhookGroup := e.Group("/webhook")
