@@ -52,7 +52,7 @@ fi
 echo $BINARY
 
 # Infer pages from .html files in the pages directory
-PAGES=$(ls ../pages/templates/*.html | xargs -n 1 basename | cut -d. -f1)
+PAGES=$(ls ../pages/templates/*.html | xargs -n 1 basename | sed 's/\.[^.]*$//')
 
 # Run the binary for each page
 for PAGE in $PAGES; do
