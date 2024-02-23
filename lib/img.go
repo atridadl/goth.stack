@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"image"
+	_ "image/jpeg"
 	"image/png"
 	"io"
 	"mime/multipart"
@@ -16,12 +17,12 @@ func ResizeImg(file multipart.File, width int, height int) ([]byte, error) {
 	fileContent, err := io.ReadAll(file)
 	if err != nil {
 		return nil, errors.New("Error reading image file")
-
 	}
 
 	// Decode image
 	img, _, err := image.Decode(bytes.NewReader(fileContent))
 	if err != nil {
+		println(err.Error())
 		return nil, errors.New("Error decoding image")
 	}
 
