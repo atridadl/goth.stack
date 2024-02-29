@@ -3,25 +3,37 @@ package lib
 import (
 	"context"
 	"os"
+	"sync"
 
 	"atri.dad/lib/pubsub"
 	"github.com/zmb3/spotify"
 	"golang.org/x/oauth2"
 )
 
-var spotifyOAuth2Endpoint = oauth2.Endpoint{
-	TokenURL: "https://accounts.spotify.com/api/token",
-	AuthURL:  "https://accounts.spotify.com/authorize",
+var (
+	spotifyOAuth2Endpoint = oauth2.Endpoint{
+		TokenURL: "https://accounts.spotify.com/api/token",
+		AuthURL:  "https://accounts.spotify.com/authorize",
+	}
+	config *oauth2.Config
+	once   sync.Once
+)
+
+func GetOAuth2Config(clientID string, clientSecret string) *oauth2.Config {
+	once.Do(func() {
+		config = &oauth2.Config{
+			ClientID:     clientID,
+			ClientSecret: clientSecret,
+			Scopes:       []string{spotify.ScopeUserReadCurrentlyPlaying},
+			Endpoint:     spotifyOAuth2Endpoint,
+		}
+	})
+	return config
 }
 
 func GetCurrentlyPlayingTrack(clientID string, clientSecret string, refreshToken string) (*spotify.CurrentlyPlaying, error) {
 	// OAuth2 config
-	config := &oauth2.Config{
-		ClientID:     clientID,
-		ClientSecret: clientSecret,
-		Scopes:       []string{spotify.ScopeUserReadCurrentlyPlaying},
-		Endpoint:     spotifyOAuth2Endpoint,
-	}
+	config := GetOAuth2Config(clientID, clientSecret)
 
 	// Token source
 	tokenSource := config.TokenSource(context.Background(), &oauth2.Token{RefreshToken: refreshToken})

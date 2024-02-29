@@ -20,6 +20,7 @@ require (
 	github.com/rogpeppe/go-internal v1.12.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect
+	golang.org/x/image v0.15.0 // indirect
 	golang.org/x/net v0.21.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
@@ -30,8 +31,8 @@ require (
 
 require (
 	github.com/alecthomas/assert/v2 v2.4.1 // indirect
-	github.com/anthonynsimon/bild v0.13.0
 	github.com/clerkinc/clerk-sdk-go v1.49.0
+	github.com/disintegration/imaging v1.6.2
 	github.com/fatih/color v1.16.0
 	github.com/gorilla/feeds v1.1.2
 	github.com/joho/godotenv v1.5.1
