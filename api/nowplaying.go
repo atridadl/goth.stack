@@ -20,7 +20,10 @@ func NowPlayingHandler(c echo.Context) error {
 	}
 
 	if playing.Item != nil && playing.Playing {
-		return c.String(http.StatusOK, `<div class="indicator-item badge badge-success"><a _="on mouseover put '🔥 Listening to `+playing.Item.Name+" by "+playing.Item.Artists[0].Name+` 🔥' into my.textContent on mouseout put '🔥' into my.textContent" href="`+playing.Item.ExternalURLs["spotify"]+`" rel="noreferrer" target="_blank">🔥</a></div>`)
+		songName := lib.NowPlayingTextFilter(playing.Item.Name)
+		artistName := lib.NowPlayingTextFilter(playing.Item.Artists[0].Name)
+
+		return c.String(http.StatusOK, `<div class="indicator-item badge badge-success"><a _='on mouseover put "🔥 Listening to `+songName+" by "+artistName+` 🔥" into my.textContent on mouseout put "🔥" into my.textContent' href="`+playing.Item.ExternalURLs["spotify"]+`" rel="noreferrer" target="_blank">🔥</a></div>`)
 	} else {
 		return c.String(http.StatusOK, "")
 	}

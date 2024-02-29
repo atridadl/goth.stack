@@ -3,6 +3,7 @@ package lib
 import (
 	"context"
 	"os"
+	"strings"
 	"sync"
 
 	"atri.dad/lib/pubsub"
@@ -18,6 +19,12 @@ var (
 	config *oauth2.Config
 	once   sync.Once
 )
+
+func NowPlayingTextFilter(s string) string {
+	s = strings.Replace(s, "'", "&#39;", -1)
+	s = strings.Replace(s, "\"", "&quot;", -1)
+	return s
+}
 
 func GetOAuth2Config(clientID string, clientSecret string) *oauth2.Config {
 	once.Do(func() {
@@ -67,7 +74,10 @@ func CurrentlyPlayingTrackSSE(ctx context.Context, pubSub pubsub.PubSub) error {
 	}
 
 	if playing.Item != nil && playing.Playing {
-		SendSSE(ctx, pubSub, "spotify", `<div class="indicator-item badge badge-success"><a _="on mouseover put '🔥 Listening to `+playing.Item.Name+" by "+playing.Item.Artists[0].Name+` 🔥' into my.textContent on mouseout put '🔥' into my.textContent" href="`+playing.Item.ExternalURLs["spotify"]+`" rel="noreferrer" target="_blank">🔥</a></div>`)
+		songName := NowPlayingTextFilter(playing.Item.Name)
+		artistName := NowPlayingTextFilter(playing.Item.Artists[0].Name)
+
+		return SendSSE(ctx, pubSub, "spotify", `<div class="indicator-item badge badge-success"><a _='on mouseover put "🔥 Listening to `+songName+" by "+artistName+` 🔥" into my.textContent on mouseout put "🔥" into my.textContent' href="`+playing.Item.ExternalURLs["spotify"]+`" rel="noreferrer" target="_blank">🔥</a></div>`)
 	} else {
 		SendSSE(ctx, pubSub, "spotify", "")
 	}
