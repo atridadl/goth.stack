@@ -79,6 +79,8 @@ github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcU
 github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
 github.com/stripe/stripe-go/v76 v76.18.0 h1:MYUgecXPoUDJ36hjKtc8h2fzpj0MpRBrN9KGCULFTbg=
 github.com/stripe/stripe-go/v76 v76.18.0/go.mod h1:rw1MxjlAKKcZ+3FOXgTHgwiOa2ya6CPq6ykpJ0Q6Po4=
+github.com/stripe/stripe-go/v76 v76.19.0 h1:aJIs+B8mKOQE90SNOFmnc7j8xyvJT66kpZQVRxXbkf0=
+github.com/stripe/stripe-go/v76 v76.19.0/go.mod h1:rw1MxjlAKKcZ+3FOXgTHgwiOa2ya6CPq6ykpJ0Q6Po4=
 github.com/svix/svix-webhooks v1.20.0 h1:XJOrxii+YxxivXcs/3I4/8FhDg3pNzEUm4c93RUEiLU=
 github.com/svix/svix-webhooks v1.20.0/go.mod h1:qGeiECF5WRQElyfF0i2CqUtWk2GQJTgL+EJZ/WRCxok=
 github.com/valyala/bytebufferpool v1.0.0 h1:GqA5TC/0021Y/b9FG4Oi9Mr3q7XYx6KllzawFIhcdPw=

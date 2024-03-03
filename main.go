@@ -10,11 +10,11 @@ import (
 	"time"
 
 	"atri.dad/api"
+	"atri.dad/api/webhooks"
 	"atri.dad/lib"
 	"atri.dad/lib/pubsub"
 	"atri.dad/lib/pubsub/adapters"
 	"atri.dad/pages"
-	"atri.dad/webhooks"
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
