@@ -7,8 +7,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"path/filepath"
-	"time"
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
@@ -60,11 +58,8 @@ func main() {
 	}))
 	e.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(50)))
 
-	// Generate the deployment time when the application starts
-	deploymentTime := fmt.Sprintf("%d", time.Now().UnixNano())
-
 	// Static server
- fs := http.FS(PublicFS)
+	fs := http.FS(PublicFS)
 	e.GET("/public/*", echo.WrapHandler(http.FileServer(fs)))
 
 	// Page routes
