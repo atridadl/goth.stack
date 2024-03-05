@@ -38,7 +38,6 @@ else
       exit 1
       ;;
   esac
-
   # Construct the binary file name
   BINARY="./tw/${OS}-${ARCH}"
   if [ "$OS" = "windows" ]; then
@@ -52,23 +51,23 @@ fi
 echo $BINARY
 
 # Infer pages from .html files in the pages directory
-PAGES=$(ls ../pages/templates/*.html | xargs -n 1 basename | sed 's/\.[^.]*$//')
+PAGES=$(ls ../../pages/templates/*.html | xargs -n 1 basename | sed 's/\.[^.]*$//')
 
 # Run the binary for each page
 for PAGE in $PAGES; do
   (
     # Detect which partials are being used in this page
-    PARTIALS=$(grep -o -E '{{template "[^"]+' ../pages/templates/${PAGE}.html | cut -d'"' -f2 | xargs -I{} echo \"../pages/templates/partials/{}.html\")
+    PARTIALS=$(grep -o -E '{{template "[^"]+' ../../pages/templates/${PAGE}.html | cut -d'"' -f2 | xargs -I{} echo \"../../pages/templates/partials/{}.html\")
 
     # Generate an array of partials and join them with commas
     PARTIALS_ARRAY=$(echo $PARTIALS | tr ' ' ',')
 
     # Always include the "header" partial and any other partials that are always used
-    PARTIALS_ARRAY=\"../pages/templates/partials/header.html\",\"../pages/templates/partials/global.html\",$PARTIALS_ARRAY
+    PARTIALS_ARRAY=\"../../pages/templates/partials/header.html\",\"../../pages/templates/partials/global.html\",$PARTIALS_ARRAY
 
     # Generate Tailwind config for this page
     echo "module.exports = {
-      content: [\"../pages/templates/${PAGE}.html\", \"../pages/templates/layouts/*.html\", $PARTIALS_ARRAY],
+      content: [\"../../pages/templates/${PAGE}.html\", \"../../pages/templates/layouts/*.html\", $PARTIALS_ARRAY],
       theme: {
         extend: {},
       },
@@ -79,7 +78,7 @@ for PAGE in $PAGES; do
     }" > tailwind.config.${PAGE}.js
 
     # Run the binary with the generated config
-    $BINARY build -i ./base.css -c tailwind.config.${PAGE}.js -o ../public/css/styles.${PAGE}.css --minify
+    $BINARY build -i ./base.css -c tailwind.config.${PAGE}.js -o ../../public/css/styles.${PAGE}.css --minify
   ) &
 done
 
