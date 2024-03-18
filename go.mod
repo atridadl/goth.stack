@@ -3,12 +3,11 @@ module atri.dad
 go 1.22.0
 
 require (
-	github.com/alecthomas/chroma/v2 v2.12.0
+	github.com/alecthomas/chroma/v2 v2.13.0
 	golang.org/x/oauth2 v0.18.0
 )
 
 require (
-	github.com/alecthomas/repr v0.3.0 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/dlclark/regexp2 v1.11.0 // indirect
@@ -30,8 +29,6 @@ require (
 )
 
 require (
-	github.com/alecthomas/assert/v2 v2.4.1 // indirect
-	github.com/cenkalti/backoff/v4 v4.2.1
 	github.com/clerkinc/clerk-sdk-go v1.49.0
 	github.com/disintegration/imaging v1.6.2
 	github.com/fatih/color v1.16.0
@@ -41,8 +38,7 @@ require (
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/redis/go-redis/v9 v9.5.1
-	github.com/resendlabs/resend-go v1.7.0
-	github.com/stripe/stripe-go/v76 v76.20.0
+	github.com/stripe/stripe-go/v76 v76.21.0
 	github.com/svix/svix-webhooks v1.21.0
 	github.com/yuin/goldmark v1.7.0
 	github.com/yuin/goldmark-highlighting/v2 v2.0.0-20230729083705-37449abec8cc
