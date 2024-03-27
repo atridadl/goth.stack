@@ -70,10 +70,10 @@ func main() {
 	e.GET("/talks", pages.Talks)
 	e.GET("/blog", pages.Blog)
 	e.GET("/post/:post", pages.Post)
-	e.GET("/sse", pages.SSEDemo)
 	e.GET("/rss", pages.RSSFeedHandler)
 	e.GET("/tools", pages.Tools)
 	e.GET("/tools/resize", pages.Resize)
+	e.GET("/tools/ssedemo", pages.SSEDemo)
 
 	// API Routes:
 	apiGroup := e.Group("/api")
@@ -86,12 +86,12 @@ func main() {
 		return api.SSE(c, pubSub)
 	})
 
-	apiGroup.POST("/sendsse", func(c echo.Context) error {
+	apiGroup.POST("/tools/sendsse", func(c echo.Context) error {
 		return api.SSEDemoSend(c, pubSub)
 	})
 
-	apiGroup.GET("/nowplaying", api.NowPlayingHandler)
-	apiGroup.POST("/resize", api.ResizeHandler)
+	apiGroup.GET("/spotify/nowplaying", api.NowPlayingHandler)
+	apiGroup.POST("/tools/resize", api.ResizeHandler)
 
 	// Webhook Routes:
 	webhookGroup := e.Group("/webhook")

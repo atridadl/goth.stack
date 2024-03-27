@@ -12,7 +12,7 @@ Atridad Lahiji // Tools // Resizer
 
 {{define "main"}}
 <h2 class="text-2xl font-extrabold tracking-tight text-white sm:text-[2rem]">Image Resizer</h2>
-<form action="/api/resize" method="post" enctype="multipart/form-data" class="flex-col flex gap-4">
+<form action="/api/tools/resize" method="post" enctype="multipart/form-data" class="flex-col flex gap-4">
 	Select image to resize:
 	<input type="file" name="image" accept=".png,.jpg,.jpeg"
 		class="file-input file-input-bordered file-input-secondary w-full max-w-xs" required />

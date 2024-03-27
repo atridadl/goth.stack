@@ -1,0 +1,36 @@
+{{define "title"}}Atridad Lahiji // SSE{{end}}
+
+{{define "headercontent"}}
+Atridad Lahiji // SSE <div class="badge badge-accent">BETA</div>
+{{end}}
+
+{{define "head"}}
+<link rel="stylesheet" href="/public/css/styles.tools.ssedemo.css" />
+{{end}}
+
+{{define "main"}}
+<h2 class="text-2xl font-extrabold tracking-tight text-white sm:text-[2rem]">Server Sent Events</h2>
+
+<p class="text-lg">This page demonstrates the use of the <a href="https://htmx.org/extensions/sse/">HTMX SSE
+    Extention</a> to receive Server Sent Events on the "default" channel.</p>
+<p class="text-lg">Any events received on the "default" channel will appear below:</p>
+<div hx-ext="sse" sse-connect="/api/sse" sse-swap="message">
+  Waiting for SSE Message...
+</div>
+
+<p class="text-lg">Here you can send messages on the default channel:</p>
+<form hx-post="/api/tools/sendsse" hx-trigger="submit" hx-swap="none" class="flex-col flex gap-2">
+  <div class="label">
+    <span class="label-text">Message</span>
+  </div>
+  <input type="text" name="message" value="Hello world!" placeholder="Enter your message here"
+    class="input input-bordered input-primary w-full max-w-xs" />
+
+  <button type="submit" class="btn btn-primary">Send Event</button>
+</form>
+{{end}}
+
+{{define "foot"}}
+<script src="/public/js/htmx.base.js"></script>
+<script src="/public/js/htmx.sse.js"></script>
+{{end}}
