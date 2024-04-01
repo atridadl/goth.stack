@@ -2,10 +2,10 @@ module goth.stack
 
 go 1.22.0
 
-require github.com/alecthomas/chroma/v2 v2.12.0
+require github.com/alecthomas/chroma/v2 v2.13.0
 
 require (
-	github.com/alecthomas/repr v0.3.0 // indirect
+	github.com/alecthomas/repr v0.4.0 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/dlclark/regexp2 v1.11.0 // indirect
@@ -19,7 +19,7 @@ require (
 )
 
 require (
-	github.com/alecthomas/assert/v2 v2.4.1 // indirect
+	github.com/alecthomas/assert/v2 v2.6.0 // indirect
 	github.com/fatih/color v1.16.0
 	github.com/gorilla/feeds v1.1.2
 	github.com/joho/godotenv v1.5.1
