@@ -17,7 +17,7 @@ Real-time applications require a pub/sub or publish and subscribe model. A clien
 For this stack, I chose Remix for its close adherence to web standards and easy support for server-sent events. These web socket connections work one way: from server to client. Next, we must synchronize all Server Sent events across different requests to a single node. For this, Node.js has its own Event Emitter API, which we can use. Now, we can use something like Redis and its Pub/Sub commands for multi-node setups to broadcast across nodes.
 
 This is what it would look like:
-![Diagram](https://fly.storage.tigris.dev/atridad/articles/scalability.png)
+![Diagram](https://atridad.s3.amazonaws.com/articles/scalability.png)
 
 # How does it work?
 
