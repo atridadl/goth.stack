@@ -21,19 +21,13 @@ func Projects(c echo.Context) error {
 			Name:        "Atash",
 			Description: "The 🔥hottest🔥 full-stack Remix template!",
 			Tags:        []string{"react", "remix.js", "template"},
-			Href:        "http://atash.atri.dad",
+			Href:        "https://github.com/atridadl/Atash",
 		},
 		{
-			Name:        "Darius TS",
-			Description: "🚀 A Web Application Template Powered by HTMX + Elysia + Tailwind 🚀",
-			Tags:        []string{"typescript", "htmx", "template"},
-			Href:        "https://ts.darius.atri.dad",
-		},
-		{
-			Name:        "Darius Go",
-			Description: "🚀 A Web Application Template Powered by HTMX + Go Fiber + Tailwind 🚀",
+			Name:        "GOTH Stack",
+			Description: "🚀 A Web Application Template Powered by HTMX + Go + Tailwind 🚀",
 			Tags:        []string{"golang", "htmx", "template"},
-			Href:        "https://go.darius.atri.dad",
+			Href:        "https://github.com/atridadl/goth.stack",
 		},
 		{
 			Name:        "Himbot",
@@ -52,12 +46,6 @@ func Projects(c echo.Context) error {
 			Description: "A lightweight REST load testing tool with robust support for different verbs, token auth, and performance reports.",
 			Tags:        []string{"golang", "cli"},
 			Href:        "https://github.com/atridadl/loadr",
-		},
-		{
-			Name:        "GOTH Stack",
-			Description: "A template using Go + Templates + HTMX",
-			Tags:        []string{"golang", "htmx", "template"},
-			Href:        "https://github.com/atridadl/goth.stack",
 		},
 	}
 
