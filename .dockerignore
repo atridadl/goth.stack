@@ -1,8 +1,0 @@
-**/goth.stack
-**/.env
-**/airbin
-**/tmp
-**/*.rdb
-**/stylegen/**
-fly.toml
-tailwind.config.*.js
