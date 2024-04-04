@@ -4,7 +4,7 @@
 
 Go + Templates + HTMX
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/eFl6QS?referralCode=i4U1gm)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/Tu9vmY?referralCode=i4U1gm)
 
 ## Stack:
 - Backend: Golang + Echo
