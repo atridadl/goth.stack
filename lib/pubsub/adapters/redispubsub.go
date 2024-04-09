@@ -2,7 +2,6 @@ package adapters
 
 import (
 	"context"
-	"errors"
 	"os"
 
 	"atri.dad/lib"
@@ -33,7 +32,7 @@ func NewRedisClient() (*redis.Client, error) {
 	opts, err := redis.ParseURL(redis_url)
 
 	if err != nil {
-		return nil, errors.New("math: square root of negative number")
+		return nil, err
 	}
 
 	lib.LogInfo.Printf("\n[PUBSUB/REDIS]Connecting to Redis at %s\n", opts.Addr)
