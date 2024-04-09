@@ -35,7 +35,7 @@ func NewRedisClient() *redis.Client {
 		return nil
 	}
 
-	lib.LogInfo.Printf("\n[PUBSUB/REDIS]Connecting to Redis at %s\n", opts.ClientName)
+	lib.LogInfo.Printf("\n[PUBSUB/REDIS]Connecting to Redis at %s\n", opts.Addr)
 	RedisClient = redis.NewClient(opts)
 
 	return RedisClient

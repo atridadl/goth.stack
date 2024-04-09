@@ -27,7 +27,7 @@ require (
 )
 
 require (
-	github.com/aws/aws-sdk-go v1.51.16
+	github.com/aws/aws-sdk-go v1.51.17
 	github.com/clerkinc/clerk-sdk-go v1.49.0
 	github.com/disintegration/imaging v1.6.2
 	github.com/fatih/color v1.16.0

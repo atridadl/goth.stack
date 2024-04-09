@@ -12,10 +12,10 @@ type ProjectProps struct {
 func Projects(c echo.Context) error {
 	projects := []lib.CardLink{
 		{
-			Name:        "Sprint Padawan",
-			Description: "A scrum poker tool that helps agile teams plan their sprints in real-time.",
+			Name:        "Pollo",
+			Description: "A dead-simple real-time voting tool.",
 			Tags:        []string{"react", "remix.js", "product"},
-			Href:        "https://sprintpadawan.dev",
+			Href:        "https://pollo.atri.dad",
 		},
 		{
 			Name:        "Atash",
