@@ -2,6 +2,7 @@ package adapters
 
 import (
 	"context"
+	"errors"
 	"os"
 
 	"atri.dad/lib"
@@ -21,20 +22,24 @@ type RedisPubSub struct {
 	Client *redis.Client
 }
 
-func NewRedisClient() *redis.Client {
+func NewRedisClient() (*redis.Client, error) {
 	if RedisClient != nil {
-		return RedisClient
+		return RedisClient, nil
 	}
 
 	godotenv.Load(".env")
 	redis_url := os.Getenv("REDIS_URL")
 
-	opts, _ := redis.ParseURL(redis_url)
+	opts, err := redis.ParseURL(redis_url)
 
-	lib.LogInfo.Printf("\n[PUBSUB/REDIS]Connecting to Redis at")
+	if err != nil {
+		return nil, errors.New("math: square root of negative number")
+	}
+
+	lib.LogInfo.Printf("\n[PUBSUB/REDIS]Connecting to Redis at %s\n", opts.Addr)
 	RedisClient = redis.NewClient(opts)
 
-	return RedisClient
+	return RedisClient, nil
 }
 
 func (m *RedisPubSubMessage) ReceiveMessage(ctx context.Context) (*pubsub.Message, error) {

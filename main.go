@@ -29,15 +29,14 @@ func main() {
 	godotenv.Load(".env")
 
 	// Initialize Redis client
-	adapters.RedisClient = adapters.NewRedisClient()
+	redisClient, redisError := adapters.NewRedisClient()
 
-	// Test Redis connection
-	_, err := adapters.RedisClient.Ping(context.Background()).Result()
+	adapters.RedisClient = redisClient
 
 	// Initialize pubsub
 	var pubSub pubsub.PubSub
-	if err != nil {
-		lib.LogWarning.Printf("\n[PUBSUB/INIT] Failed to connect to Redis: %v\n", err)
+	if redisError != nil {
+		lib.LogWarning.Printf("\n[PUBSUB/INIT] Failed to connect to Redis: %v\n", redisError)
 		lib.LogWarning.Printf("\n[PUBSUB/INIT] Falling back to LocalPubSub\n")
 		pubSub = &adapters.LocalPubSub{}
 	} else {
