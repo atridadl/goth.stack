@@ -21,9 +21,9 @@ type RedisPubSub struct {
 	Client *redis.Client
 }
 
-func NewRedisClient() *redis.Client {
+func NewRedisClient() (*redis.Client, error) {
 	if RedisClient != nil {
-		return RedisClient
+		return RedisClient, nil
 	}
 
 	godotenv.Load(".env")
@@ -32,13 +32,13 @@ func NewRedisClient() *redis.Client {
 	opts, err := redis.ParseURL(redis_url)
 
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
 	lib.LogInfo.Printf("\n[PUBSUB/REDIS]Connecting to Redis at %s\n", opts.Addr)
 	RedisClient = redis.NewClient(opts)
 
-	return RedisClient
+	return RedisClient, nil
 }
 
 func (m *RedisPubSubMessage) ReceiveMessage(ctx context.Context) (*pubsub.Message, error) {
