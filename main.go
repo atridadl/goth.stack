@@ -30,8 +30,7 @@ func main() {
 
 	// Initialize Redis client
 	redisClient, redisError := adapters.NewRedisClient()
-
-	adapters.RedisClient = redisClient
+	
 
 	// Initialize pubsub
 	var pubSub pubsub.PubSub
@@ -40,6 +39,7 @@ func main() {
 		lib.LogWarning.Printf("\n[PUBSUB/INIT] Falling back to LocalPubSub\n")
 		pubSub = &adapters.LocalPubSub{}
 	} else {
+		adapters.RedisClient = redisClient
 		pubSub = &adapters.RedisPubSub{
 			Client: adapters.RedisClient,
 		}
