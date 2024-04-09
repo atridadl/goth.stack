@@ -29,11 +29,7 @@ func NewRedisClient() *redis.Client {
 	godotenv.Load(".env")
 	redis_url := os.Getenv("REDIS_URL")
 
-	opts, err := redis.ParseURL(redis_url)
-
-	if err != nil {
-		return nil
-	}
+	opts, _ := redis.ParseURL(redis_url)
 
 	lib.LogInfo.Printf("\n[PUBSUB/REDIS]Connecting to Redis at %s\n", opts.Addr)
 	RedisClient = redis.NewClient(opts)
