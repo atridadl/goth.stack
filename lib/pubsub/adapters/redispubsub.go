@@ -31,7 +31,7 @@ func NewRedisClient() *redis.Client {
 
 	opts, _ := redis.ParseURL(redis_url)
 
-	lib.LogInfo.Printf("\n[PUBSUB/REDIS]Connecting to Redis at %s\n", opts.Addr)
+	lib.LogInfo.Printf("\n[PUBSUB/REDIS]Connecting to Redis at")
 	RedisClient = redis.NewClient(opts)
 
 	return RedisClient
