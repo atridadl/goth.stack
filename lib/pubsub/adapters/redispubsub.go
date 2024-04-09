@@ -27,15 +27,16 @@ func NewRedisClient() *redis.Client {
 	}
 
 	godotenv.Load(".env")
-	redis_host := os.Getenv("REDIS_HOST")
-	redis_password := os.Getenv("REDIS_PASSWORD")
+	redis_url := os.Getenv("REDIS_URL")
 
-	lib.LogInfo.Printf("\n[PUBSUB/REDIS]Connecting to Redis at %s\n", redis_host)
-	RedisClient = redis.NewClient(&redis.Options{
-		Addr:     redis_host,
-		Password: redis_password,
-		DB:       0,
-	})
+	opts, err := redis.ParseURL(redis_url)
+
+	if err != nil {
+		return nil
+	}
+
+	lib.LogInfo.Printf("\n[PUBSUB/REDIS]Connecting to Redis at %s\n", opts.Addr)
+	RedisClient = redis.NewClient(opts)
 
 	return RedisClient
 }
