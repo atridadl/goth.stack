@@ -14,6 +14,7 @@ func Testimonials(c echo.Context) error {
 		"/public/img/testimonials/1.png",
 		"/public/img/testimonials/2.png",
 		"/public/img/testimonials/3.png",
+		"/public/img/testimonials/4.png",
 	}
 
 	props := TestimonialsProps{
