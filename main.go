@@ -30,7 +30,6 @@ func main() {
 
 	// Initialize Redis client
 	redisClient, redisError := adapters.NewRedisClient()
-	
 
 	// Initialize pubsub
 	var pubSub pubsub.PubSub
