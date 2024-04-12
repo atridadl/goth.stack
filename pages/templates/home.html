@@ -24,70 +24,26 @@ Atridad Lahiji // Root
   <h2 class="mb-2 text-xl text-white sm:text-[1.5rem]">Places I exist:</h2>
   <div class="flex flex-row flex-wrap items-center justify-center gap-4 text-center">
     {{range .Socials}}
-    {{if eq .Name "Spotify"}}
-    <div class="indicator indicator-top indicator-end">
-      <div hx-ext="sse" sse-connect="/api/sse?channel=spotify" sse-swap="message">
-        <span class="link link-hover link-success" hx-get="/api/spotify/nowplaying" hx-trigger="load" hx-swap="self">
-        </span>
-      </div>
-
-      <a class="fill-white hover:fill-pink-500" href={{.Href}} target="_blank" rel="me" aria-label={{.Name}}>
-        {{.Icon}}
-      </a>
-    </div>
-    {{else}}
-    <a class="fill-white hover:fill-pink-500" href={{.Href}} target="_blank" rel="me" aria-label={{.Name}}>
-      {{.Icon}}
-    </a>
-    {{end}}
+    {{template "iconlinks" .}}
     {{end}}
   </div>
 </span>
 
-
 <span>
   <h2 class="mb-2 text-xl text-white sm:text-[1.5rem]">Stuff I Use:</h2>
+
   <div class="flex flex-row flex-wrap items-center justify-center gap-4 text-center">
     {{range .Tech}}
-    <a class="fill-white hover:fill-pink-500" href={{.Href}} target="_blank" rel="me" aria-label={{.Name}}>
-      {{.Icon}}
-    </a>
+    {{template "iconlinks" .}}
     {{end}}
   </div>
 </span>
 
 <div class="flex flex-row flex-wrap gap-2">
-  <a class="btn btn-primary btn-outline btn-md lg:btn-lg" href={{.ContractLink}} target="_blank" rel="noreferrer">
-    Contract Me
-  </a>
-
-  <a class="btn btn-primary btn-outline btn-md lg:btn-lg" href={{.ResumeURL}} target="_blank" rel="noreferrer">
-    Resumé
-  </a>
-
-  <a class="btn btn-primary btn-outline btn-md lg:btn-lg" href={{.SupportLink}} target="_blank" rel="noreferrer">
-    Support 🩵
-  </a>
+  {{range .ButtonsLinks}}
+  {{template "buttonlinks" .}}
+  {{end}}
 </div>
-
-<span>
-  <h2 class="mb-2 text-xl text-white sm:text-[1.5rem]">Things People Say About Me:</h2>
-  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-    <div>
-      <img class="object-cover object-center w-full max-w-full rounded-lg" src="/public/img/testimonials/1.png"
-        alt="Review of Atri" loading="lazy" />
-    </div>
-    <div>
-      <img class="object-cover object-center w-full max-w-full rounded-lg" src="/public/img/testimonials/2.png"
-        alt="Review of Atri" loading="lazy" />
-    </div>
-    <div>
-      <img class="object-cover object-center w-full max-w-full rounded-lg" src="/public/img/testimonials/3.png"
-        alt="Review of Atri" loading="lazy" />
-    </div>
-  </div>
-</span>
-
 {{end}}
 
 {{define "foot"}}

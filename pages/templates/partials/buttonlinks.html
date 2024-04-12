@@ -1,0 +1,15 @@
+{{define "buttonlinks"}}
+{{if eq true .Internal}}
+
+<a class="btn btn-primary btn-outline btn-md lg:btn-lg" href={{.Href}}>
+  {{.Name}}
+</a>
+
+{{else}}
+
+<a class="btn btn-primary btn-outline btn-md lg:btn-lg" href={{.Href}} target="_blank" rel="noreferrer">
+  {{.Name}}
+</a>
+
+{{end}}
+{{end}}

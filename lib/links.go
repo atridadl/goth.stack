@@ -18,3 +18,9 @@ type CardLink struct {
 	Tags        []string
 	Internal    bool
 }
+
+type ButtonLink struct {
+	Name     string
+	Href     string
+	Internal bool
+}

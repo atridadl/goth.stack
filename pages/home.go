@@ -10,9 +10,7 @@ import (
 type HomeProps struct {
 	Socials      []lib.IconLink
 	Tech         []lib.IconLink
-	ContractLink string
-	ResumeURL    string
-	SupportLink  string
+	ButtonsLinks []lib.ButtonLink
 }
 
 func Home(c echo.Context) error {
@@ -137,16 +135,37 @@ func Home(c echo.Context) error {
 		},
 	}
 
+	buttons := []lib.ButtonLink{
+		{
+			Name:     "Contract Me",
+			Href:     "mailto:contract@atri.dad",
+			Internal: false,
+		},
+		{
+			Name:     "Resumé",
+			Href:     lib.GeneratePublicURL("Atridad_Lahiji_Resume.pdf"),
+			Internal: false,
+		},
+		{
+			Name:     "Testimonials",
+			Href:     "/testimonials",
+			Internal: true,
+		},
+		{
+			Name:     "Support 🩵",
+			Href:     "https://donate.stripe.com/8wMeVF25c78L0V2288",
+			Internal: false,
+		},
+	}
+
 	props := HomeProps{
 		Socials:      socials,
 		Tech:         tech,
-		ContractLink: "mailto:contract@atri.dad",
-		ResumeURL:    lib.GeneratePublicURL("Atridad_Lahiji_Resume.pdf"),
-		SupportLink:  "https://donate.stripe.com/8wMeVF25c78L0V2288",
+		ButtonsLinks: buttons,
 	}
 
 	// Specify the partials used by this page
-	partials := []string{"header", "navitems"}
+	partials := []string{"header", "navitems", "iconlinks", "buttonlinks"}
 
 	// Render the template
 	return lib.RenderTemplate(c.Response().Writer, "base", partials, props)

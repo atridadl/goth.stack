@@ -66,6 +66,7 @@ func main() {
 	e.GET("/", pages.Home)
 	e.GET("/projects", pages.Projects)
 	e.GET("/talks", pages.Talks)
+	e.GET("/testimonials", pages.Testimonials)
 	e.GET("/blog", pages.Blog)
 	e.GET("/post/:post", pages.Post)
 	e.GET("/rss", pages.RSSFeedHandler)
