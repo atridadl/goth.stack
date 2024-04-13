@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"sync"
-	"time"
 
 	"atri.dad/lib/pubsub"
 	"github.com/labstack/echo/v4"
@@ -88,19 +87,6 @@ func SetSSEHeaders(c echo.Context) {
 	c.Response().Header().Set(echo.HeaderContentType, "text/event-stream")
 	c.Response().Header().Set(echo.HeaderConnection, "keep-alive")
 	c.Response().Header().Set(echo.HeaderCacheControl, "no-cache")
-}
-
-func CreateTickerAndKeepAlive(c echo.Context, duration time.Duration) *time.Ticker {
-	ticker := time.NewTicker(duration)
-	go func() {
-		for range ticker.C {
-			if _, err := c.Response().Write([]byte(": keep-alive\n\n")); err != nil {
-				log.Printf("Failed to write keep-alive: %v", err)
-			}
-			c.Response().Flush()
-		}
-	}()
-	return ticker
 }
 
 func HandleIncomingMessages(c echo.Context, pubsub pubsub.PubSubMessage, client chan string) {

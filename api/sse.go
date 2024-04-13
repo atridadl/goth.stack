@@ -3,7 +3,6 @@ package api
 import (
 	"errors"
 	"fmt"
-	"time"
 
 	"atri.dad/lib"
 	"atri.dad/lib/pubsub"
@@ -29,10 +28,6 @@ func SSE(c echo.Context, pubSub pubsub.PubSub) error {
 	}
 
 	lib.SetSSEHeaders(c)
-
-	// Create a ticker that fires every 15 seconds
-	ticker := lib.CreateTickerAndKeepAlive(c, 30*time.Second)
-	defer ticker.Stop()
 
 	// Create a client channel and add it to the SSE server
 	client := make(chan string)
