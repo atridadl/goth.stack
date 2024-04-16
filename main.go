@@ -69,7 +69,6 @@ func main() {
 	e.GET("/testimonials", pages.Testimonials)
 	e.GET("/blog", pages.Blog)
 	e.GET("/post/:post", pages.Post)
-	e.GET("/rss", pages.RSSFeedHandler)
 	e.GET("/tools", pages.Tools)
 	e.GET("/tools/resize", pages.Resize)
 	e.GET("/tools/ssedemo", pages.SSEDemo)
@@ -79,6 +78,7 @@ func main() {
 	apiGroup.GET("/ping", api.Ping)
 	apiGroup.GET("/authed/ping", api.Authed)
 	apiGroup.POST("/pay", api.Pay)
+	apiGroup.GET("/rss", api.RSSFeedHandler)
 	apiGroup.GET("/post/copy", api.PostCopy)
 
 	apiGroup.GET("/sse", func(c echo.Context) error {

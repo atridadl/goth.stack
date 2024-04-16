@@ -1,4 +1,4 @@
-package pages
+package api
 
 import (
 	"io/fs"
