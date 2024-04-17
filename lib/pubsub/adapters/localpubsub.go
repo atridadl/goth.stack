@@ -3,7 +3,6 @@ package adapters
 import (
 	"context"
 	"sync"
-	"time"
 
 	"atri.dad/lib"
 	"atri.dad/lib/pubsub"
