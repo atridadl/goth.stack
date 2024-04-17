@@ -82,9 +82,6 @@ func (m *LocalPubSubMessage) ReceiveMessage(ctx context.Context) (*pubsub.Messag
 			// A message has been received. Send it to the client.
 			lib.LogInfo.Printf("\n[PUBSUB/LOCAL] Received message: %s\n", msg.Payload)
 			return &msg, nil
-		case <-time.After(30 * time.Second):
-			// No message has been received for 30 seconds. Send a keep-alive message.
-			return &pubsub.Message{Payload: "keep-alive"}, nil
 		}
 	}
 }
