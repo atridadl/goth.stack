@@ -1,6 +1,6 @@
 ---
 name: "Thoughts on AI"
-date: "April 024 2024"
+date: "April 24 2024"
 tags: ["thoughts", "dev"]
 ---
 Another quick one folks! I have made huge changes to my setup lately, and wanted to document it here for those who may be looking for something simpler. I like _simple_ software. VSCode and even Zed do _not_ check that box. Zed is riddled with collaboration features I don't need and VSCode is famously cluttered and loves to horde as much RAM as possible. What happened to simple code editors? Nothing!
