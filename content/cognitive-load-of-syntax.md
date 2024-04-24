@@ -1,7 +1,7 @@
 ---
 name: "Thoughts on Cognitive Load and Programming Language Syntax"
 date: "February 07 2024"
-tags: ["article","thoughts"]
+tags: ["thoughts"]
 ---
 Recently, I started to pick up a new language in my spare time: Go. Was it partially influenced by the surge in HTMX popularity and how often Go is used alongside it? Almost certainly. But at some point along this journey, I noticed something: This is _so_ much more fun and _so_ much less draining. This whole post won't be me gushing about how much I love Go as a language, not directly. I started to notice a few things...
 
