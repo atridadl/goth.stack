@@ -1,5 +1,5 @@
 ---
-name: "Thoughts on AI"
+name: "Editor Setup 2024"
 date: "April 24 2024"
 tags: ["thoughts", "dev"]
 ---
