@@ -11,6 +11,8 @@ github.com/aws/aws-sdk-go v1.51.21 h1:UrT6JC9R9PkYYXDZBV0qDKTualMr+bfK2eboTknMgb
 github.com/aws/aws-sdk-go v1.51.21/go.mod h1:LF8svs817+Nz+DmiMQKTO3ubZ/6IaTpq3TjupRn3Eqk=
 github.com/aws/aws-sdk-go v1.51.23 h1:/3TEdsEE/aHmdKGw2NrOp7Sdea76zfffGkTTSXTsDxY=
 github.com/aws/aws-sdk-go v1.51.23/go.mod h1:LF8svs817+Nz+DmiMQKTO3ubZ/6IaTpq3TjupRn3Eqk=
+github.com/aws/aws-sdk-go v1.51.27 h1:ZprksHovT4rFfNBHB+Bc/0p4PTntAnTlZP39DMA/Qp8=
+github.com/aws/aws-sdk-go v1.51.27/go.mod h1:LF8svs817+Nz+DmiMQKTO3ubZ/6IaTpq3TjupRn3Eqk=
 github.com/brianvoe/gofakeit/v6 v6.19.0/go.mod h1:Ow6qC71xtwm79anlwKRlWZW6zVq9D2XHE4QSSMP/rU8=
 github.com/bsm/ginkgo/v2 v2.12.0 h1:Ny8MWAHyOepLGlLKYmXG4IEkioBysk6GpaRTLC8zwWs=
 github.com/bsm/ginkgo/v2 v2.12.0/go.mod h1:SwYbGRRDovPVboqFv0tPTcG1sN61LM1Z4ARdbAV9g4c=
