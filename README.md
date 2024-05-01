@@ -4,7 +4,7 @@ This is my personal website!
 ## Stack:
 - Backend: Golang + Echo
 - Rendering: Golang templates
-- Style: TailwindCSS + DaisyUI (No JS Needed)
+- Style: TailwindCSS + DaisyUI
 - Content format: Markdown
 
 ## Requirements:
