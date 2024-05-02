@@ -100,7 +100,7 @@ func HandleIncomingMessages(c echo.Context, pubsub pubsub.PubSubMessage, client 
 			msg, err := pubsub.ReceiveMessage(c.Request().Context())
 			if err != nil {
 				log.Printf("Failed to receive message: %v", err)
-				continue
+				return
 			}
 
 			data := fmt.Sprintf("data: %s\n\n", msg.Payload)
