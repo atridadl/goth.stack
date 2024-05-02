@@ -15,7 +15,7 @@ This is my personal website!
 2. Duplicate the .env.example file and call it .env
 3. Fill out the .env values
 4. Run ```go install github.com/cosmtrek/air@latest``` to download Air for live reload
-5. Run ```air``` to start the dev server
+5. Run ```air``` to start the dev server (macOS and Linux only)
 
 _Note that on MacOS, you need to right click and open the appropriate tailwind executable before you can run StyleGen. This is a limitation of running unsigned binaries in MacOS. Blame Tim Apple._
 
