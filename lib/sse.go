@@ -90,14 +90,25 @@ func SetSSEHeaders(c echo.Context) {
 }
 
 func HandleIncomingMessages(c echo.Context, pubsub pubsub.PubSubMessage, client chan string) {
+	// Create a new context that is not tied to the client's request context
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel() // Cancel the context when the function returns
+
+	// Use a separate goroutine to monitor the client's request context
+	go func() {
+		<-c.Request().Context().Done()
+		cancel() // Cancel the context when the client disconnects
+	}()
+
 	for {
 		select {
-		case <-c.Request().Context().Done():
-			// The client has disconnected. Stop trying to send messages.
+		case <-ctx.Done():
+			// The context has been canceled, either by the client disconnecting
+			// or by the function returning. Stop trying to send messages.
 			return
 		default:
 			// The client is still connected. Continue processing messages.
-			msg, err := pubsub.ReceiveMessage(c.Request().Context())
+			msg, err := pubsub.ReceiveMessage(ctx)
 			if err != nil {
 				log.Printf("Failed to receive message: %v", err)
 				return
