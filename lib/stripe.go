@@ -1,7 +1,6 @@
 package lib
 
 import (
-	"log"
 	"net/http"
 	"os"
 

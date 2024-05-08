@@ -5,7 +5,6 @@ import (
 	"embed"
 	"flag"
 	"fmt"
-	"log"
 	"net/http"
 	"time"
 

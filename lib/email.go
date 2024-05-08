@@ -2,7 +2,6 @@ package lib
 
 import (
 	"crypto/tls"
-	"log"
 	"net/smtp"
 	"os"
 )

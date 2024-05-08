@@ -92,53 +92,42 @@ func SetSSEHeaders(c echo.Context) {
 func HandleIncomingMessages(c echo.Context, pubsub pubsub.PubSubMessage, client chan string) {
 	if c.Response().Writer == nil {
 		LogError.Printf("Cannot handle incoming messages: ResponseWriter is nil")
-
 		return
 	}
-
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-
-	go func() {
-		<-c.Request().Context().Done()
-		cancel()
-	}()
 
 	var mutex sync.Mutex
 
 	for {
-		select {
-		case <-ctx.Done():
+		msg, err := pubsub.ReceiveMessage(c.Request().Context())
+		if err != nil {
+			if err == context.Canceled {
+				// The client has disconnected. Stop trying to send messages.
+				return
+			}
+			LogError.Printf("Failed to receive message: %v", err)
 			return
-		default:
-			msg, err := pubsub.ReceiveMessage(ctx)
-			if err != nil {
-				LogError.Printf("Failed to receive message: %v", err)
+		}
 
+		data := fmt.Sprintf("data: %s\n\n", msg.Payload)
+
+		mutex.Lock()
+		if c.Response().Writer != nil {
+			_, err := c.Response().Write([]byte(data))
+			if err != nil {
+				LogError.Printf("Failed to write message: %v", err)
+				mutex.Unlock()
 				return
 			}
 
-			data := fmt.Sprintf("data: %s\n\n", msg.Payload)
-
-			mutex.Lock()
-			if c.Response().Writer != nil {
-				_, err = c.Response().Write([]byte(data))
-				if err != nil {
-					LogError.Printf("Failed to write message: %v", err)
-					mutex.Unlock()
-					return
-				}
-
-				flusher, ok := c.Response().Writer.(http.Flusher)
-				if ok {
-					flusher.Flush()
-				} else {
-					LogError.Println("Failed to flush: ResponseWriter does not implement http.Flusher")
-				}
+			flusher, ok := c.Response().Writer.(http.Flusher)
+			if ok {
+				flusher.Flush()
 			} else {
-				LogError.Println("Failed to write: ResponseWriter is nil")
+				LogError.Println("Failed to flush: ResponseWriter does not implement http.Flusher")
 			}
-			mutex.Unlock()
+		} else {
+			LogError.Println("Failed to write: ResponseWriter is nil")
 		}
+		mutex.Unlock()
 	}
 }
