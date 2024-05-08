@@ -125,5 +125,5 @@ func main() {
 		Handler: e,
 	}
 	e.Logger.Fatal(e.StartServer(s))
-	log.Println("Server started on port", *port)
+	lib.LogSuccess.Println("Server started on port", *port)
 }

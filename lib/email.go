@@ -8,7 +8,7 @@ import (
 )
 
 func SendEmail(to_email string, from_email string, from_name string, html string, subject string) {
-	log.Println("Starting email sending process")
+	LogInfo.Println("Starting email sending process")
 
 	// Set up authentication information.
 	auth := smtp.PlainAuth(
@@ -18,7 +18,7 @@ func SendEmail(to_email string, from_email string, from_name string, html string
 		os.Getenv("SMTP_HOST"),
 	)
 
-	log.Println("Authentication set up")
+	LogSuccess.Println("Authentication set up")
 
 	// Connect to the server, authenticate, set the sender and recipient,
 	// and send the email all in one step.
@@ -34,69 +34,69 @@ func SendEmail(to_email string, from_email string, from_name string, html string
 		ServerName:         os.Getenv("SMTP_HOST"),
 	}
 
-	log.Println("TLS configuration set up")
+	LogSuccess.Println("TLS configuration set up")
 
 	c, err := smtp.Dial(os.Getenv("SMTP_HOST") + ":587")
 	if err != nil {
-		log.Println("Error dialing SMTP server:", err)
+		LogError.Println("Error dialing SMTP server:", err)
 		return
 	}
 
-	log.Println("Connected to SMTP server")
+	LogSuccess.Println("Connected to SMTP server")
 
 	if err = c.StartTLS(tlsconfig); err != nil {
-		log.Println("Error starting TLS:", err)
+		LogError.Println("Error starting TLS:", err)
 		return
 	}
 
-	log.Println("TLS started")
+	LogInfo.Println("TLS started")
 
 	if err = c.Auth(auth); err != nil {
-		log.Println("Error authenticating with SMTP server:", err)
+		LogError.Println("Error authenticating with SMTP server:", err)
 		return
 	}
 
-	log.Println("Authenticated with SMTP server")
+	LogSuccess.Println("Authenticated with SMTP server")
 
 	if err = c.Mail(from_email); err != nil {
-		log.Println("Error setting sender address:", err)
+		LogError.Println("Error setting sender address:", err)
 		return
 	}
 
-	log.Println("Sender address set")
+	LogSuccess.Println("Sender address set")
 
 	if err = c.Rcpt(to_email); err != nil {
-		log.Println("Error setting recipient address:", err)
+		LogError.Println("Error setting recipient address:", err)
 		return
 	}
 
-	log.Println("Recipient address set")
+	LogSuccess.Println("Recipient address set")
 
 	w, err := c.Data()
 	if err != nil {
-		log.Println("Error getting write closer:", err)
+		LogError.Println("Error getting write closer:", err)
 		return
 	}
 
-	log.Println("Got write closer")
+	LogSuccess.Println("Got write closer")
 
 	_, err = w.Write(msg)
 	if err != nil {
-		log.Println("Error writing message:", err)
+		LogError.Println("Error writing message:", err)
 		return
 	}
 
-	log.Println("Message written")
+	LogSuccess.Println("Message written")
 
 	err = w.Close()
 	if err != nil {
-		log.Println("Error closing write closer:", err)
+		LogError.Println("Error closing write closer:", err)
 		return
 	}
 
-	log.Println("Write closer closed")
+	LogSuccess.Println("Write closer closed")
 
 	c.Quit()
 
-	log.Println("Email sent successfully")
+	LogSuccess.Println("Email sent successfully")
 }

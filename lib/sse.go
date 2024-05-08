@@ -3,7 +3,6 @@ package lib
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
 	"sync"
 
@@ -58,7 +57,8 @@ func (s *SSEServerType) ClientCount(channel string) int {
 }
 
 func SendSSE(ctx context.Context, messageBroker pubsub.PubSub, channel string, message string) error {
-	log.Printf("Sending SSE message to channel %s", channel)
+	LogInfo.Printf("Sending SSE message to channel %s", channel)
+
 	errCh := make(chan error, 1)
 
 	go func() {
@@ -73,11 +73,13 @@ func SendSSE(ctx context.Context, messageBroker pubsub.PubSub, channel string, m
 
 	err := <-errCh
 	if err != nil {
-		log.Printf("Error sending SSE message: %v", err)
+		LogError.Printf("Error sending SSE message: %v", err)
+
 		return err
 	}
 
-	log.Println("SSE message sent successfully")
+	LogSuccess.Printf("SSE message sent successfully")
+
 	return nil
 }
 
@@ -89,7 +91,8 @@ func SetSSEHeaders(c echo.Context) {
 
 func HandleIncomingMessages(c echo.Context, pubsub pubsub.PubSubMessage, client chan string) {
 	if c.Response().Writer == nil {
-		log.Println("Cannot handle incoming messages: ResponseWriter is nil")
+		LogError.Printf("Cannot handle incoming messages: ResponseWriter is nil")
+
 		return
 	}
 
@@ -110,7 +113,8 @@ func HandleIncomingMessages(c echo.Context, pubsub pubsub.PubSubMessage, client 
 		default:
 			msg, err := pubsub.ReceiveMessage(ctx)
 			if err != nil {
-				log.Printf("Failed to receive message: %v", err)
+				LogError.Printf("Failed to receive message: %v", err)
+
 				return
 			}
 
@@ -120,7 +124,7 @@ func HandleIncomingMessages(c echo.Context, pubsub pubsub.PubSubMessage, client 
 			if c.Response().Writer != nil {
 				_, err = c.Response().Write([]byte(data))
 				if err != nil {
-					log.Printf("Failed to write message: %v", err)
+					LogError.Printf("Failed to write message: %v", err)
 					mutex.Unlock()
 					return
 				}
@@ -129,10 +133,10 @@ func HandleIncomingMessages(c echo.Context, pubsub pubsub.PubSubMessage, client 
 				if ok {
 					flusher.Flush()
 				} else {
-					log.Println("Failed to flush: ResponseWriter does not implement http.Flusher")
+					LogError.Println("Failed to flush: ResponseWriter does not implement http.Flusher")
 				}
 			} else {
-				log.Println("Failed to write: ResponseWriter is nil")
+				LogError.Println("Failed to write: ResponseWriter is nil")
 			}
 			mutex.Unlock()
 		}

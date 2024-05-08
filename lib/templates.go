@@ -28,14 +28,14 @@ func RenderTemplate(w http.ResponseWriter, layout string, partials []string, pro
 	// Parse the templates
 	ts, err := template.ParseFS(templatefs.FS, templates...)
 	if err != nil {
-		log.Print(err.Error())
+		LogError.Print(err.Error())
 		return err
 	}
 
 	// Execute the layout template
 	err = ts.ExecuteTemplate(w, layout, props)
 	if err != nil {
-		log.Print(err.Error())
+		LogError.Print(err.Error())
 		return err
 	}
 

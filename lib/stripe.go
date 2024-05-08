@@ -34,7 +34,7 @@ func CreateCheckoutSession(w http.ResponseWriter, r *http.Request, successUrl st
 	s, err := session.New(params)
 
 	if err != nil {
-		log.Printf("session.New: %v", err)
+		LogError.Printf("session.New: %v", err)
 	}
 
 	http.Redirect(w, r, s.URL, http.StatusSeeOther)

@@ -22,7 +22,7 @@ func Blog(c echo.Context) error {
 
 	files, err := fs.ReadDir(contentfs.FS, ".")
 	if err != nil {
-		log.Println(err)
+		lib.LogError.Println(err)
 		http.Error(c.Response().Writer, "There was an issue finding posts!", http.StatusInternalServerError)
 		return nil
 	}
@@ -31,7 +31,7 @@ func Blog(c echo.Context) error {
 		if !file.IsDir() && strings.HasSuffix(file.Name(), ".md") {
 			frontMatter, err := lib.ExtractFrontMatter(file, contentfs.FS)
 			if err != nil {
-				log.Println(err)
+				lib.LogError.Println(err)
 				http.Error(c.Response().Writer, "There was an issue rendering the posts!", http.StatusInternalServerError)
 				return nil
 			}
