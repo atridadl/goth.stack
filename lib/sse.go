@@ -17,7 +17,6 @@ type SSEServerType struct {
 }
 
 var SSEServer *SSEServerType
-var mutex = &sync.Mutex{}
 
 func init() {
 	SSEServer = &SSEServerType{
@@ -90,24 +89,21 @@ func SetSSEHeaders(c echo.Context) {
 }
 
 func HandleIncomingMessages(c echo.Context, pubsub pubsub.PubSubMessage, client chan string) {
-	// Create a new context that is not tied to the client's request context
 	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel() // Cancel the context when the function returns
+	defer cancel()
 
-	// Use a separate goroutine to monitor the client's request context
 	go func() {
 		<-c.Request().Context().Done()
-		cancel() // Cancel the context when the client disconnects
+		cancel()
 	}()
+
+	var mutex sync.Mutex
 
 	for {
 		select {
 		case <-ctx.Done():
-			// The context has been canceled, either by the client disconnecting
-			// or by the function returning. Stop trying to send messages.
 			return
 		default:
-			// The client is still connected. Continue processing messages.
 			msg, err := pubsub.ReceiveMessage(ctx)
 			if err != nil {
 				log.Printf("Failed to receive message: %v", err)
@@ -117,17 +113,15 @@ func HandleIncomingMessages(c echo.Context, pubsub pubsub.PubSubMessage, client 
 			data := fmt.Sprintf("data: %s\n\n", msg.Payload)
 
 			mutex.Lock()
-			_, err = c.Response().Write([]byte(data))
-			mutex.Unlock()
+			defer mutex.Unlock()
 
-			if err != nil {
-				log.Printf("Failed to write message: %v", err)
-				return // Stop processing if an error occurs
-			}
-
-			// Check if the ResponseWriter is nil before trying to flush it
 			if c.Response().Writer != nil {
-				// Check if the ResponseWriter implements http.Flusher before calling Flush
+				_, err = c.Response().Write([]byte(data))
+				if err != nil {
+					log.Printf("Failed to write message: %v", err)
+					return
+				}
+
 				flusher, ok := c.Response().Writer.(http.Flusher)
 				if ok {
 					flusher.Flush()
@@ -135,7 +129,8 @@ func HandleIncomingMessages(c echo.Context, pubsub pubsub.PubSubMessage, client 
 					log.Println("Failed to flush: ResponseWriter does not implement http.Flusher")
 				}
 			} else {
-				log.Println("Failed to flush: ResponseWriter is nil")
+				log.Println("Failed to write: ResponseWriter is nil")
+				return
 			}
 		}
 	}

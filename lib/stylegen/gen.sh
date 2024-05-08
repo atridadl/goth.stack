@@ -1,4 +1,26 @@
-#!/bin/sh
+#!/bin/bash
+
+# Parse command-line arguments
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -e|--extensions)
+      EXTENSIONS="$2"
+      shift; shift
+      ;;
+    -d|--directory)
+      DIRECTORY="$2"
+      shift; shift
+      ;;
+    -o|--output-dir)
+      OUTPUT_DIR="$2"
+      shift; shift
+      ;;
+    *)
+      echo "Unknown argument: $1"
+      exit 1
+      ;;
+  esac
+done
 
 OS=$(uname -s)
 ARCH=$(uname -m)
@@ -41,39 +63,52 @@ else
   chmod +x $BINARY
 fi
 
-echo $BINARY
+echo "Extensions: $EXTENSIONS"
+echo "Directory: $DIRECTORY"
+echo "Output Directory: $OUTPUT_DIR"
 
-# Infer pages from .html files in the pages directory
-PAGES=$(ls ../../pages/templates/*.html | xargs -n 1 basename | sed 's/\.[^.]*$//')
+# Set default values if not provided
+OUTPUT_DIR="${OUTPUT_DIR:-../../public/css}"
+DIRECTORY="${DIRECTORY:-.}"
 
-# Run the binary for each page
-for PAGE in $PAGES; do
-  (
-    # Detect which partials are being used in this page
-    PARTIALS=$(grep -o -E '{{template "[^"]+' ../../pages/templates/${PAGE}.html | cut -d'"' -f2 | xargs -I{} echo \"../../pages/templates/partials/{}.html\")
+if [[ -z "$EXTENSIONS" ]]; then
+    echo "No extensions provided."
+    exit 1
+fi
 
-    # Generate an array of partials and join them with commas
-    PARTIALS_ARRAY=$(echo $PARTIALS | tr ' ' ',')
+# Initialize an array for name conditions
+name_conditions=()
 
-    # Always include the "header" partial and any other partials that are always used
-    PARTIALS_ARRAY=\"../../pages/templates/partials/header.html\",\"../../pages/templates/partials/global.html\",$PARTIALS_ARRAY
-
-    # Generate Tailwind config for this page
-    echo "module.exports = {
-      content: [\"../../pages/templates/${PAGE}.html\", \"../../pages/templates/layouts/*.html\", $PARTIALS_ARRAY],
-      theme: {
-        extend: {},
-      },
-      daisyui: {
-        themes: [\"night\"],
-      },
-      plugins: [require('daisyui'), require('@tailwindcss/typography')],
-    }" > tailwind.config.${PAGE}.js
-
-    # Run the binary with the generated config
-    $BINARY build -i ./base.css -c tailwind.config.${PAGE}.js -o ../../public/css/styles.${PAGE}.css --minify
-  ) &
+# Assuming $EXTENSIONS is a comma-separated list of extensions
+IFS=',' read -ra ADDR <<< "$EXTENSIONS"
+for ext in "${ADDR[@]}"; do
+    name_conditions+=(-name "*.$ext")
 done
+
+# Use find with the array of conditions
+INCLUDE_FILES=$(find "$DIRECTORY" -type f \( "${name_conditions[@]}" \))
+
+echo "Files found: $INCLUDE_FILES"
+
+# Optionally, remove leading './' if necessary
+INCLUDE_FILES=$(echo "$INCLUDE_FILES" | sed 's|^\./||')
+
+INCLUDE_FILES_ARRAY=$(echo "$INCLUDE_FILES" | awk '{printf "\"%s\",", $0}' | sed 's/,$//')
+
+# Generate Tailwind config
+echo "module.exports = {
+  content: [$INCLUDE_FILES_ARRAY],
+  theme: {
+    extend: {},
+  },
+  daisyui: {
+    themes: [\"night\"],
+  },
+  plugins: [require('daisyui'), require('@tailwindcss/typography')],
+}" > tailwind.config.js
+
+# Run the binary with the generated config
+$BINARY build -i ./base.css -c tailwind.config.js -o "${OUTPUT_DIR}/styles.css" --minify
 
 # Wait for all background processes to finish
 wait

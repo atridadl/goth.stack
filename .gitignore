@@ -5,4 +5,4 @@ airbin
 tmp/
 *.rdb
 .DS_Store
-tailwind.config.*.js
+tailwind.config.js
