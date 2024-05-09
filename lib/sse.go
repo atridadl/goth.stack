@@ -102,6 +102,7 @@ func HandleIncomingMessages(c echo.Context, pubsub pubsub.PubSubMessage, client 
 		if err != nil {
 			if err == context.Canceled {
 				// The client has disconnected. Stop trying to send messages.
+				LogInfo.Printf("Client disconnected, stopping message forwarding")
 				return
 			}
 			LogError.Printf("Failed to receive message: %v", err)
