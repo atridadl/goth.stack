@@ -28,4 +28,4 @@ services:
       - "traefik.http.routers.site.service=site"
       - "traefik.http.routers.site.entrypoints=websecure"
       - "traefik.http.routers.site.tls.certresolver=letsencrypt"
-      - "traefik.http.services.site.loadbalancer.server.port=80"
+      - "traefik.http.services.site.loadbalancer.server.port=3000"
