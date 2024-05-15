@@ -131,3 +131,4 @@ func HandleIncomingMessages(c echo.Context, pubsub pubsub.PubSubMessage, client 
 		}
 		mutex.Unlock()
 	}
+}
