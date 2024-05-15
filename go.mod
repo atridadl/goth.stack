@@ -27,10 +27,10 @@ require (
 )
 
 require (
-	github.com/aws/aws-sdk-go v1.52.5
+	github.com/aws/aws-sdk-go v1.53.2
 	github.com/clerkinc/clerk-sdk-go v1.49.0
 	github.com/disintegration/imaging v1.6.2
-	github.com/fatih/color v1.16.0
+	github.com/fatih/color v1.17.0
 	github.com/gorilla/feeds v1.1.2
 	github.com/joho/godotenv v1.5.1
 	github.com/labstack/echo/v4 v4.12.0
