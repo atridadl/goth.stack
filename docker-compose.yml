@@ -22,3 +22,10 @@ services:
       - SPOTIFY_CLIENT_SECRET=$SPOTIFY_CLIENT_SECRET
       - SPOTIFY_REFRESH_TOKEN=$SPOTIFY_REFRESH_TOKEN
       - STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.site.rule=Host(`atri.dad`)"
+      - "traefik.http.routers.site.service=site"
+      - "traefik.http.routers.site.entrypoints=websecure"
+      - "traefik.http.routers.site.tls.certresolver=letsencrypt"
+      - "traefik.http.services.site.loadbalancer.server.port=80"
