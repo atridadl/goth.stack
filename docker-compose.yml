@@ -25,3 +25,8 @@ services:
       - SPOTIFY_CLIENT_SECRET=$SPOTIFY_CLIENT_SECRET
       - SPOTIFY_REFRESH_TOKEN=$SPOTIFY_REFRESH_TOKEN
       - STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY
+
+networks:
+  nginx_default:
+    external:
+      name: nginx_default
