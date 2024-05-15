@@ -32,8 +32,7 @@ func userCreatedHandler(event ClerkEvent) {
 		<h2>There are a number of apps this account give you access to!</h2>
 		<br/>
 		<ul>
-		<li>Atash Demo: https://atash.atri.dad/</li>
-		<li>Commodore: https://commodore.atri.dad/</li>
+		<li>Pollo: https://pollo.atri.dad/</li>
 		</ul>
 		`
 
