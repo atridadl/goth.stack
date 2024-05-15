@@ -87,7 +87,7 @@ func SetSSEHeaders(c echo.Context) {
 	c.Response().Header().Set(echo.HeaderContentType, "text/event-stream")
 	c.Response().Header().Set(echo.HeaderConnection, "keep-alive")
 	c.Response().Header().Set(echo.HeaderCacheControl, "no-cache")
-	c.Response().Header().Set("X-Accel-Buffering", "yes")
+	c.Response().Header().Set("X-Accel-Buffering", "no")
 }
 
 func HandleIncomingMessages(c echo.Context, pubsub pubsub.PubSubMessage, client chan string) {
