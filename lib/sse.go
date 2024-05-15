@@ -112,12 +112,6 @@ func HandleIncomingMessages(c echo.Context, pubsub pubsub.PubSubMessage, client 
 			return
 		}
 
-		// Skip processing if the message payload is empty
-		if msg.Payload == "" {
-			LogInfo.Printf("Received empty message, skipping processing")
-			continue
-		}
-
 		// Prepare the data string to be sent as an SSE
 		data := fmt.Sprintf("data: %s\n\n", msg.Payload)
 
