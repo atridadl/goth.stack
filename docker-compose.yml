@@ -10,6 +10,8 @@ services:
     pull_policy: build
     ports:
       - "3000:3000"
+    networks:
+      - nginx_default
     environment:
       - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
       - AWS_ENDPOINT_URL_S3=$AWS_ENDPOINT_URL_S3
