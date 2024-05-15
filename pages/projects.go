@@ -36,12 +36,6 @@ func Projects(c echo.Context) error {
 			Href:        "https://github.com/atridadl/HimBot",
 		},
 		{
-			Name:        "Commodore",
-			Description: "Helpful Nightbot Helpers for Twitch",
-			Tags:        []string{"react", "remix.js", "template"},
-			Href:        "https://commodore.atri.dad",
-		},
-		{
 			Name:        "loadr",
 			Description: "A lightweight REST load testing tool with robust support for different verbs, token auth, and performance reports.",
 			Tags:        []string{"golang", "cli"},
