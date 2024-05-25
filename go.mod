@@ -3,7 +3,7 @@ module atri.dad
 go 1.22.0
 
 require (
-	github.com/alecthomas/chroma/v2 v2.13.0
+	github.com/alecthomas/chroma/v2 v2.14.0
 	golang.org/x/oauth2 v0.20.0
 )
 
@@ -27,7 +27,7 @@ require (
 )
 
 require (
-	github.com/aws/aws-sdk-go v1.53.2
+	github.com/aws/aws-sdk-go v1.53.10
 	github.com/clerkinc/clerk-sdk-go v1.49.0
 	github.com/disintegration/imaging v1.6.2
 	github.com/fatih/color v1.17.0
