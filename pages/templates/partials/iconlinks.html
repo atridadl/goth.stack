@@ -1,18 +1,5 @@
 {{define "iconlinks"}}
-{{if eq .Name "Spotify"}}
-<div class="indicator indicator-top indicator-end">
-  <div hx-ext="sse" sse-connect="/api/sse?channel=spotify" sse-swap="message">
-    <span class="link link-hover link-success" hx-get="/api/spotify/nowplaying" hx-trigger="load" hx-swap="self">
-    </span>
-  </div>
-
-  <a class="fill-white hover:fill-pink-500" href={{.Href}} target="_blank" rel="me" aria-label={{.Name}}>
-    {{.Icon}}
-  </a>
-</div>
-{{else}}
 <a class="fill-white hover:fill-pink-500" href={{.Href}} target="_blank" rel="me" aria-label={{.Name}}>
   {{.Icon}}
 </a>
-{{end}}
 {{end}}

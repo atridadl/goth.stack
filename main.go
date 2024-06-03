@@ -88,30 +88,11 @@ func main() {
 		return api.SSEDemoSend(c, pubSub)
 	})
 
-	apiGroup.GET("/spotify/nowplaying", api.NowPlayingHandler)
 	apiGroup.POST("/tools/resize", api.ResizeHandler)
 
 	// Webhook Routes:
 	webhookGroup := e.Group("/webhook")
 	webhookGroup.POST("/clerk", webhooks.ClerkWebhookHandler)
-
-	// Spotify Polling
-	go func() {
-		ticker := time.NewTicker(5 * time.Second)
-		defer ticker.Stop()
-
-		for range ticker.C {
-			// Check if there are any clients connected to the "spotify" channel
-			if lib.SSEServer.ClientCount("spotify") > 0 {
-				// Get the currently playing track
-				err := lib.CurrentlyPlayingTrackSSE(context.Background(), pubSub)
-				if err != nil {
-					// Handle error
-					continue
-				}
-			}
-		}
-	}()
 
 	// Parse command-line arguments for IP and port
 	ip := flag.String("ip", "", "IP address to bind the server to")
