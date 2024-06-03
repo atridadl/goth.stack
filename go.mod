@@ -27,8 +27,8 @@ require (
 )
 
 require (
-	github.com/aws/aws-sdk-go v1.53.10
-	github.com/clerkinc/clerk-sdk-go v1.49.0
+	github.com/aws/aws-sdk-go v1.53.14
+	github.com/clerkinc/clerk-sdk-go v1.49.1
 	github.com/disintegration/imaging v1.6.2
 	github.com/fatih/color v1.17.0
 	github.com/gorilla/feeds v1.1.2
@@ -36,7 +36,7 @@ require (
 	github.com/labstack/echo/v4 v4.12.0
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
-	github.com/redis/go-redis/v9 v9.5.1
+	github.com/redis/go-redis/v9 v9.5.2
 	github.com/stripe/stripe-go/v76 v76.25.0
 	github.com/svix/svix-webhooks v1.24.0
 	github.com/yuin/goldmark v1.7.1
