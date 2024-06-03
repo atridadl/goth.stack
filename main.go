@@ -1,12 +1,10 @@
 package main
 
 import (
-	"context"
 	"embed"
 	"flag"
 	"fmt"
 	"net/http"
-	"time"
 
 	"atri.dad/api"
 	"atri.dad/api/webhooks"
