@@ -9,8 +9,6 @@ import (
 	"atri.dad/api"
 	"atri.dad/api/webhooks"
 	"atri.dad/lib"
-	"atri.dad/lib/pubsub"
-	"atri.dad/lib/pubsub/adapters"
 	"atri.dad/pages"
 
 	"github.com/joho/godotenv"
@@ -24,22 +22,6 @@ var PublicFS embed.FS
 func main() {
 	// Load environment variables
 	godotenv.Load(".env")
-
-	// Initialize Redis client
-	redisClient, redisError := adapters.NewRedisClient()
-
-	// Initialize pubsub
-	var pubSub pubsub.PubSub
-	if redisError != nil {
-		lib.LogWarning.Printf("\n[PUBSUB/INIT] Failed to connect to Redis: %v\n", redisError)
-		lib.LogWarning.Printf("\n[PUBSUB/INIT] Falling back to LocalPubSub\n")
-		pubSub = &adapters.LocalPubSub{}
-	} else {
-		adapters.RedisClient = redisClient
-		pubSub = &adapters.RedisPubSub{
-			Client: adapters.RedisClient,
-		}
-	}
 
 	// Initialize Echo router
 	e := echo.New()
@@ -79,11 +61,11 @@ func main() {
 	apiGroup.GET("/post/copy", api.PostCopy)
 
 	apiGroup.GET("/sse", func(c echo.Context) error {
-		return api.SSE(c, pubSub)
+		return api.SSE(c)
 	})
 
 	apiGroup.POST("/tools/sendsse", func(c echo.Context) error {
-		return api.SSEDemoSend(c, pubSub)
+		return api.SSEDemoSend(c)
 	})
 
 	apiGroup.POST("/tools/resize", api.ResizeHandler)

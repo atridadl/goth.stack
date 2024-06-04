@@ -4,11 +4,10 @@ import (
 	"net/http"
 
 	"atri.dad/lib"
-	"atri.dad/lib/pubsub"
 	"github.com/labstack/echo/v4"
 )
 
-func SSEDemoSend(c echo.Context, pubSub pubsub.PubSub) error {
+func SSEDemoSend(c echo.Context) error {
 	channel := c.QueryParam("channel")
 	if channel == "" {
 		channel = "default"
@@ -31,7 +30,8 @@ func SSEDemoSend(c echo.Context, pubSub pubsub.PubSub) error {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "message parameter is required"})
 	}
 
-	lib.SendSSE(c.Request().Context(), pubSub, "default", message)
+	// Send message
+	lib.SendSSE(channel, message)
 
 	return c.JSON(http.StatusOK, map[string]string{"status": "message sent"})
 }

@@ -1,19 +1,14 @@
 package api
 
 import (
-	"errors"
 	"fmt"
+	"time"
 
 	"atri.dad/lib"
-	"atri.dad/lib/pubsub"
 	"github.com/labstack/echo/v4"
 )
 
-func SSE(c echo.Context, pubSub pubsub.PubSub) error {
-	if pubSub == nil {
-		return errors.New("pubSub is nil")
-	}
-
+func SSE(c echo.Context) error {
 	channel := c.QueryParam("channel")
 	if channel == "" {
 		channel = "default"
@@ -22,25 +17,44 @@ func SSE(c echo.Context, pubSub pubsub.PubSub) error {
 	// Use the request context, which is cancelled when the client disconnects
 	ctx := c.Request().Context()
 
-	pubsub, err := pubSub.SubscribeToChannel(channel)
-	if err != nil {
-		return fmt.Errorf("failed to subscribe to channel: %w", err)
-	}
+	c.Response().Header().Set(echo.HeaderContentType, "text/event-stream")
+	c.Response().Header().Set(echo.HeaderConnection, "keep-alive")
+	c.Response().Header().Set(echo.HeaderCacheControl, "no-cache")
 
-	lib.SetSSEHeaders(c)
+	// Create a channel to receive messages from the lib.SSEServer
+	clientChan := make(chan string)
 
-	// Create a client channel and add it to the SSE server
-	client := make(chan string)
-	lib.SSEServer.AddClient(channel, client)
-	defer lib.SSEServer.RemoveClient(channel, client)
+	// Add the client to the lib.SSEServer
+	lib.SSEServer.AddClient(channel, clientChan)
 
-	go lib.HandleIncomingMessages(c, pubsub, client)
+	defer func() {
+		// Remove the client from the lib.SSEServer when the connection is closed
+		lib.SSEServer.RemoveClient(channel, clientChan)
+	}()
+
+	// Create a ticker that fires every 15 seconds
+	ticker := time.NewTicker(30 * time.Second)
+	defer ticker.Stop()
 
 	for {
 		select {
 		case <-ctx.Done():
 			// If the client has disconnected, stop the loop
 			return nil
+		case <-ticker.C:
+			// Every 30 seconds, send a comment to keep the connection alive
+			if _, err := c.Response().Write([]byte(": keep-alive\n\n")); err != nil {
+				return err
+			}
+			c.Response().Flush()
+		case msg := <-clientChan:
+			// Handle incoming messages from the lib.SSEServer
+			data := fmt.Sprintf("data: %s\n\n", msg)
+			if _, err := c.Response().Write([]byte(data)); err != nil {
+				return err
+			}
+
+			c.Response().Flush()
 		}
 	}
 }
