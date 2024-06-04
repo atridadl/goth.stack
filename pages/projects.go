@@ -18,12 +18,6 @@ func Projects(c echo.Context) error {
 			Href:        "https://pollo.atri.dad",
 		},
 		{
-			Name:        "Atash",
-			Description: "The 🔥hottest🔥 full-stack Remix template!",
-			Tags:        []string{"react", "remix.js", "template"},
-			Href:        "https://github.com/atridadl/Atash",
-		},
-		{
 			Name:        "GOTH Stack",
 			Description: "🚀 A Web Application Template Powered by HTMX + Go + Tailwind 🚀",
 			Tags:        []string{"golang", "htmx", "template"},
