@@ -31,7 +31,7 @@ func SSEDemoSend(c echo.Context) error {
 	}
 
 	// Send message
-	lib.SendSSE(channel, message)
+	lib.SSEServer.SendSSE(channel, message)
 
 	return c.JSON(http.StatusOK, map[string]string{"status": "message sent"})
 }

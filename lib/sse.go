@@ -52,15 +52,15 @@ func (s *SSEServerType) ClientCount(channel string) int {
 	return len(s.clients[channel])
 }
 
-func SendSSE(channel string, message string) error {
-	SSEServer.mu.Lock()
-	defer SSEServer.mu.Unlock()
+func (s *SSEServerType) SendSSE(channel string, message string) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
 
-	for client := range SSEServer.clients[channel] {
-		client <- message
-	}
+	go func() {
+		for client := range s.clients[channel] {
+			client <- message
+		}
+	}()
 
 	LogDebug.Printf("\nMessage broadcast on channel %s: %s\n", channel, message)
-
-	return nil
 }
