@@ -24,6 +24,6 @@ services:
       - STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY
 
 networks:
-  nginx_default:
+  proxy_default:
     name: proxy_default
     external: true
