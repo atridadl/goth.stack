@@ -8,6 +8,8 @@ import (
 )
 
 type HomeProps struct {
+	Title        template.HTML
+	Subtitle     template.HTML
 	Socials      []lib.IconLink
 	Tech         []lib.IconLink
 	ButtonsLinks []lib.ButtonLink
@@ -119,6 +121,8 @@ func Home(c echo.Context) error {
 	}
 
 	props := HomeProps{
+		Title:        "Hi, I'm Atridad",
+		Subtitle:     "Researcher, Full-Stack Developer, and IT Professional.",
 		Socials:      socials,
 		Tech:         tech,
 		ButtonsLinks: buttons,

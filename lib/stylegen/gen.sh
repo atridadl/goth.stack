@@ -107,6 +107,9 @@ echo "module.exports = {
   plugins: [require('daisyui'), require('@tailwindcss/typography')],
 }" > tailwind.config.js
 
+# Delete original CSS file if it exists
+rm -f "${OUTPUT_DIR}/styles.css"
+
 # Run the binary with the generated config
 $BINARY build -i ./base.css -c tailwind.config.js -o "${OUTPUT_DIR}/styles.css" --minify
 
