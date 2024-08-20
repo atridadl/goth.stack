@@ -18,7 +18,3 @@ This is my personal website!
 5. Run ```air``` to start the dev server (macOS and Linux only)
 
 _Note that on MacOS, you need to right click and open the appropriate tailwind executable before you can run StyleGen. This is a limitation of running unsigned binaries in MacOS. Blame Tim Apple._
-
-## Tests
-Without Coverage: `go test atri.dad/lib`
-With Coverage: `go test atri.dad/lib -cover`
