@@ -11,7 +11,7 @@ This is my personal website!
 - Golang 1.22.0
 
 ## Instructions:
-1. Run go get
+1. Run ```go get```
 2. Duplicate the .env.example file and call it .env
 3. Fill out the required .env values
 4. Run ```go install github.com/cosmtrek/air@latest``` to download Air for live reload
