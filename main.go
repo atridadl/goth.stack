@@ -7,7 +7,6 @@ import (
 	"net/http"
 
 	"atri.dad/api"
-	"atri.dad/api/webhooks"
 	"atri.dad/lib"
 	"atri.dad/pages"
 
@@ -55,7 +54,6 @@ func main() {
 	// API Routes:
 	apiGroup := e.Group("/api")
 	apiGroup.GET("/ping", api.Ping)
-	apiGroup.GET("/authed/ping", api.Authed)
 	apiGroup.POST("/pay", api.Pay)
 	apiGroup.GET("/rss", api.RSSFeedHandler)
 	apiGroup.GET("/post/copy", api.PostCopy)
@@ -69,10 +67,6 @@ func main() {
 	})
 
 	apiGroup.POST("/tools/resize", api.ResizeHandler)
-
-	// Webhook Routes:
-	webhookGroup := e.Group("/webhook")
-	webhookGroup.POST("/clerk", webhooks.ClerkWebhookHandler)
 
 	// Parse command-line arguments for IP and port
 	ip := flag.String("ip", "", "IP address to bind the server to")
