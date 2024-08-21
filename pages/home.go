@@ -114,9 +114,9 @@ func Home(c echo.Context) error {
 			Internal: true,
 		},
 		{
-			Name:     "Support 🩵",
-			Href:     "https://donate.stripe.com/8wMeVF25c78L0V2288",
-			Internal: false,
+			Name:     "Posts",
+			Href:     "/posts",
+			Internal: true,
 		},
 	}
 

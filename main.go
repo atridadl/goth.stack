@@ -45,8 +45,8 @@ func main() {
 	e.GET("/projects", pages.Projects)
 	e.GET("/talks", pages.Talks)
 	e.GET("/testimonials", pages.Testimonials)
-	e.GET("/blog", pages.Blog)
-	e.GET("/post/:post", pages.Post)
+	e.GET("/posts", pages.Posts)
+	e.GET("/posts/:post", pages.Post)
 	e.GET("/tools", pages.Tools)
 	e.GET("/tools/resize", pages.Resize)
 	e.GET("/tools/ssedemo", pages.SSEDemo)
@@ -54,7 +54,6 @@ func main() {
 	// API Routes:
 	apiGroup := e.Group("/api")
 	apiGroup.GET("/ping", api.Ping)
-	apiGroup.POST("/pay", api.Pay)
 	apiGroup.GET("/rss", api.RSSFeedHandler)
 	apiGroup.GET("/post/copy", api.PostCopy)
 

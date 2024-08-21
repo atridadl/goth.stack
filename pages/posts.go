@@ -13,11 +13,11 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type BlogProps struct {
+type PostsProps struct {
 	Posts []lib.CardLink
 }
 
-func Blog(c echo.Context) error {
+func Posts(c echo.Context) error {
 	var posts []lib.CardLink
 
 	files, err := fs.ReadDir(contentfs.FS, ".")
@@ -36,7 +36,7 @@ func Blog(c echo.Context) error {
 				return nil
 			}
 
-			frontMatter.Href = "post/" + strings.TrimSuffix(file.Name(), ".md")
+			frontMatter.Href = "posts/" + strings.TrimSuffix(file.Name(), ".md")
 			frontMatter.Internal = true
 
 			posts = append(posts, frontMatter)
@@ -59,7 +59,7 @@ func Blog(c echo.Context) error {
 		return iDate.Before(jDate)
 	})
 
-	props := BlogProps{
+	props := PostsProps{
 		Posts: posts,
 	}
 
