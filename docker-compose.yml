@@ -18,7 +18,6 @@ services:
       - AWS_REGION=$AWS_REGION
       - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
       - BUCKET_NAME=$BUCKET_NAME
-      - STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY
 
 networks:
   proxy_default:
