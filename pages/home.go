@@ -99,11 +99,6 @@ func Home(c echo.Context) error {
 
 	buttons := []lib.ButtonLink{
 		{
-			Name:     "Contract Me",
-			Href:     "mailto:contract@atri.dad",
-			Internal: false,
-		},
-		{
 			Name:     "Resumé",
 			Href:     lib.GeneratePublicURL("Atridad_Lahiji_Resume.pdf"),
 			Internal: false,
