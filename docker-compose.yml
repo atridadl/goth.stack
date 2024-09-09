@@ -10,10 +10,3 @@ services:
     pull_policy: build
     ports:
       - "3000:3000"
-    networks:
-      - proxy_default
-
-networks:
-  proxy_default:
-    name: proxy_default
-    external: true
