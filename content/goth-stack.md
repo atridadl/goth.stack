@@ -71,8 +71,5 @@ So, up to this point, you may have been thinking: "Gee Atri... you can't do anyt
 
 With Go managing route handlers and API routes, the template language running the UI, and HTMX governing interactivity on the front end, you can effectively write a fully dynamic full-stack application without writing a line of JavaScript code. It even runs quite a bit faster than some of the JS world's frameworks (Astro, for instance). It is actually what powers this site right now! The fundamentals are essential here and come together for a clean and enjoyable developer experience. I encourage everyone in the JS world to give it a shot! Perhaps it is not your thing, and that's okay! But you might also just fall in love with it!
 
-# Giving It A Shot
-I have a [repository](https://github.com/atridadl/goth.stack) as well as a [demo](https://goth-stack.fly.dev/) ready to go with everything you need to start!
-
 # Thanks!
 If you found this helpful, please let me know by email at [me@atri.dad](mailto:me@atri.dad). Until next time!

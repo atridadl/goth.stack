@@ -44,7 +44,6 @@ func main() {
 	e.GET("/", pages.Home)
 	e.GET("/projects", pages.Projects)
 	e.GET("/talks", pages.Talks)
-	e.GET("/testimonials", pages.Testimonials)
 	e.GET("/posts", pages.Posts)
 	e.GET("/posts/:post", pages.Post)
 	e.GET("/tools", pages.Tools)

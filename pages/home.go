@@ -100,13 +100,8 @@ func Home(c echo.Context) error {
 	buttons := []lib.ButtonLink{
 		{
 			Name:     "Resumé",
-			Href:     lib.GeneratePublicURL("Atridad_Lahiji_Resume.pdf"),
+			Href:     "/public/files/Atridad_Lahiji_Resume.pdf",
 			Internal: false,
-		},
-		{
-			Name:     "Testimonials",
-			Href:     "/testimonials",
-			Internal: true,
 		},
 		{
 			Name:     "Posts",
