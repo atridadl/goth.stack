@@ -8,7 +8,7 @@ This is my personal website!
 - Content format: Markdown
 
 ## Requirements:
-- Golang 1.22.0
+- Golang 1.23.1
 
 ## Instructions:
 1. Run ```go get```
