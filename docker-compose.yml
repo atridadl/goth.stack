@@ -12,6 +12,6 @@ services:
       - proxy
 
 networks:
-  proxy_default:
+  proxy:
     name: proxy
     external: true
