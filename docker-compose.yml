@@ -1,6 +1,6 @@
 services:
   app:
-    image: himboapps/atridotdad:latest
+    image: registry.digitalocean.com/himboapps/atridotdad:latest
     command: ["/app"]
     ports:
       - "3000:3000"
