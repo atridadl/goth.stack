@@ -1,10 +1,6 @@
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: atridad:latest
+    image: himboapps/atridotdad:latest
     command: ["/app"]
-    pull_policy: build
     ports:
       - "3000:3000"
