@@ -24,7 +24,7 @@ jobs:
         run: doctl registry login --expiry-seconds 600
 
       - name: Tag image
-        run: docker tag atridad:${{ github.sha }} registry.digitalocean.com/<your-registry-name>/atridad:${{ github.sha }}
+        run: docker tag atridad:${{ github.sha }} registry.digitalocean.com/${{ secrets.DIGITALOCEAN_REGISTRY }}/atridotdad:${{ github.sha }}
 
       - name: Push image to DO Container Registry
-        run: docker push registry.digitalocean.com/<your-registry-name>/atridad:${{ github.sha }}
+        run: docker push registry.digitalocean.com/${{ secrets.DIGITALOCEAN_REGISTRY }}/atridotdad:${{ github.sha }}
