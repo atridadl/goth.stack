@@ -5,8 +5,8 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - proxy
+      - proxy_default
 
 networks:
-  proxy:
+  default:
     external: true
