@@ -1,13 +1,6 @@
 services:
   app:
-    image: registry.digitalocean.com/himboapps/atridotdad:latest
+    image: ghcr.io/atridadl/atridotdad:latest
     command: ["/app"]
     ports:
       - "3000:3000"
-    networks:
-      - proxy
-
-networks:
-  proxy:
-    name: proxy
-    external: true
