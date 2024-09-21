@@ -1,6 +1,6 @@
 services:
   app:
-    image: ghcr.io/atridadl/atridotdad:latest
+    image: ghcr.io/atridadl/atri.dad:latest@sha256:8ec84813f2e6c104d5660ca891520e6092a80f3f7251c2568c36e21060737f40
     command: ["/app"]
     ports:
       - "3000:3000"
