@@ -25,10 +25,10 @@ jobs:
 
       - name: Tag images
         run: |
-          docker tag atridad:${{ github.sha }} registry.digitalocean.com/${{ secrets.DIGITALOCEAN_REGISTRY }}/atridotdad:${{ github.sha }}
-          docker tag atridad:${{ github.sha }} registry.digitalocean.com/${{ secrets.DIGITALOCEAN_REGISTRY }}/atridotdad:latest
+          docker tag atridad:${{ github.sha }} ${{ secrets.DIGITALOCEAN_REGISTRY }}:${{ github.sha }}
+          docker tag atridad:${{ github.sha }} ${{ secrets.DIGITALOCEAN_REGISTRY }}:latest
 
       - name: Push images to DO Container Registry
         run: |
-          docker push registry.digitalocean.com/${{ secrets.DIGITALOCEAN_REGISTRY }}/atridotdad:${{ github.sha }}
-          docker push registry.digitalocean.com/${{ secrets.DIGITALOCEAN_REGISTRY }}/atridotdad:latest
+          docker push ${{ secrets.DIGITALOCEAN_REGISTRY }}:${{ github.sha }}
+          docker push ${{ secrets.DIGITALOCEAN_REGISTRY }}:latest
