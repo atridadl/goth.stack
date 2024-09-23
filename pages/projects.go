@@ -14,8 +14,8 @@ func Projects(c echo.Context) error {
 		{
 			Name:        "Pollo",
 			Description: "A dead-simple real-time voting tool.",
-			Tags:        []string{"react", "remix.js", "product"},
-			Href:        "https://pollo.atri.dad",
+			Tags:        []string{"golang", "htmx", "product"},
+			Href:        "https://github.com/atridadl/pollo",
 		},
 		{
 			Name:        "GOTH Stack",
