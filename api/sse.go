@@ -8,6 +8,15 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// SSE godoc
+// @Summary Server-Sent Events endpoint
+// @Description Establishes a Server-Sent Events connection
+// @Tags sse
+// @Accept json
+// @Produce text/event-stream
+// @Param channel query string false "Channel name"
+// @Success 200 {string} string "Event stream"
+// @Router /sse [get]
 func SSE(c echo.Context) error {
 	channel := c.QueryParam("channel")
 	if channel == "" {

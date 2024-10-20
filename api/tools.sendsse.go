@@ -7,6 +7,17 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// SSEDemoSend godoc
+// @Summary Send SSE message
+// @Description Sends a message to a specified SSE channel
+// @Tags sse,tools
+// @Accept json
+// @Produce json
+// @Param channel query string false "Channel name"
+// @Param message query string false "Message to send"
+// @Success 200 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Router /tools/sendsse [post]
 func SSEDemoSend(c echo.Context) error {
 	channel := c.QueryParam("channel")
 	if channel == "" {

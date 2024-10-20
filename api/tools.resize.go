@@ -9,6 +9,19 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// ResizeHandler godoc
+// @Summary Resize an image
+// @Description Resizes an uploaded image to specified dimensions
+// @Tags tools
+// @Accept mpfd
+// @Produce png
+// @Param image formData file true "Image file to resize"
+// @Param width formData int true "Target width"
+// @Param height formData int true "Target height"
+// @Success 200 {file} binary "Resized image"
+// @Failure 400 {string} string "Bad request"
+// @Failure 500 {string} string "Internal server error"
+// @Router /tools/resize [post]
 func ResizeHandler(c echo.Context) error {
 
 	// Extract file from request

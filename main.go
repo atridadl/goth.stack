@@ -10,14 +10,21 @@ import (
 	"atri.dad/lib"
 	"atri.dad/pages"
 
+	_ "atri.dad/docs"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 //go:embed public/*
 var PublicFS embed.FS
 
+// @title Atri.dad API
+// @version 1.0
+// @description This is the API for atri.dad
+// @host localhost:3000
+// @BasePath /api
 func main() {
 	// Load environment variables
 	godotenv.Load(".env")
@@ -52,6 +59,8 @@ func main() {
 
 	// API Routes:
 	apiGroup := e.Group("/api")
+	// Swagger endpoint
+	apiGroup.GET("/swagger/*", echoSwagger.WrapHandler)
 	apiGroup.GET("/ping", api.Ping)
 	apiGroup.GET("/rss", api.RSSFeedHandler)
 	apiGroup.GET("/post/copy", api.PostCopy)

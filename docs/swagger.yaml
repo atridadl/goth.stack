@@ -1,0 +1,131 @@
+basePath: /api
+host: localhost:3000
+info:
+  contact: {}
+  description: This is the API for atri.dad
+  title: Atri.dad API
+  version: "1.0"
+paths:
+  /ping:
+    get:
+      consumes:
+      - application/json
+      description: Get a pong response
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Pong!
+          schema:
+            type: string
+      summary: Ping the server
+      tags:
+      - ping
+  /post/copy:
+    get:
+      consumes:
+      - application/json
+      description: Returns an SVG of a copy icon
+      produces:
+      - text/html
+      responses:
+        "200":
+          description: SVG content
+          schema:
+            type: string
+      summary: Get copy icon SVG
+      tags:
+      - post
+  /sse:
+    get:
+      consumes:
+      - application/json
+      description: Establishes a Server-Sent Events connection
+      parameters:
+      - description: Channel name
+        in: query
+        name: channel
+        type: string
+      produces:
+      - text/event-stream
+      responses:
+        "200":
+          description: Event stream
+          schema:
+            type: string
+      summary: Server-Sent Events endpoint
+      tags:
+      - sse
+  /tools/resize:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Resizes an uploaded image to specified dimensions
+      parameters:
+      - description: Image file to resize
+        in: formData
+        name: image
+        required: true
+        type: file
+      - description: Target width
+        in: formData
+        name: width
+        required: true
+        type: integer
+      - description: Target height
+        in: formData
+        name: height
+        required: true
+        type: integer
+      produces:
+      - image/png
+      responses:
+        "200":
+          description: Resized image
+          schema:
+            type: file
+        "400":
+          description: Bad request
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Resize an image
+      tags:
+      - tools
+  /tools/sendsse:
+    post:
+      consumes:
+      - application/json
+      description: Sends a message to a specified SSE channel
+      parameters:
+      - description: Channel name
+        in: query
+        name: channel
+        type: string
+      - description: Message to send
+        in: query
+        name: message
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Send SSE message
+      tags:
+      - sse
+      - tools
+swagger: "2.0"

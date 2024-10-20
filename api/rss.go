@@ -1,5 +1,14 @@
 package api
 
+// RSSFeedHandler godoc
+// @Summary Get RSS feed
+// @Description Returns an RSS feed of blog posts
+// @Tags rss
+// @Accept json
+// @Produce xml
+// @Success 200 {string} string "RSS feed content"
+// @Failure 500 {string} string "Internal Server Error"
+// @Router /rss [get]
 import (
 	"io/fs"
 	"net/http"
