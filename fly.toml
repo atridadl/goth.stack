@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for atridotdad on 2024-10-16T05:53:09Z
+# fly.toml app configuration file generated for atridotdad on 2024-10-19T22:21:23-06:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'atridotdad'
-primary_region = 'yyz'
+primary_region = 'sea'
 
 [build]
 
@@ -17,6 +17,4 @@ primary_region = 'yyz'
   processes = ['app']
 
 [[vm]]
-  memory = '256mb'
-  cpu_kind = 'shared'
-  cpus = 1
+  size = 'shared-cpu-1x'
