@@ -1,6 +1,0 @@
-services:
-  app:
-    image: ghcr.io/atridadl/atri.dad:latest
-    command: ["/app"]
-    ports:
-      - "3000:3000"
