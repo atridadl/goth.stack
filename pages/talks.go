@@ -29,7 +29,7 @@ func Talks(c echo.Context) error {
 			Name:        "Introduction to Social Network Analysis (SNA)",
 			Description: "Understanding Relationships in Social Structures",
 			Href:        "/public/files/Understanding_Relationships_in_Social_Structures.pdf",
-			Tags:        []string{"graohs", "social", "lecture"},
+			Tags:        []string{"graphs", "social", "lecture"},
 			Date:        "October 08, 2024",
 		},
 	}
