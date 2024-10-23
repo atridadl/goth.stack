@@ -25,6 +25,13 @@ func Talks(c echo.Context) error {
 			Tags:        []string{"golang", "htmx", "ssr"},
 			Date:        "February 01, 2024",
 		},
+		{
+			Name:        "Introduction to Social Network Analysis (SNA)",
+			Description: "Understanding Relationships in Social Structures",
+			Href:        "/public/files/Understanding_Relationships_in_Social_Structures.pdf",
+			Tags:        []string{"graohs", "social", "lecture"},
+			Date:        "October 08, 2024",
+		},
 	}
 
 	props := TalkProps{
