@@ -12,13 +12,6 @@ type TalkProps struct {
 func Talks(c echo.Context) error {
 	talks := []lib.CardLink{
 		{
-			Name:        "How to ship less JavaScript",
-			Description: "A talk on building websites while being mindful of the JavaScript we ship. Presented at the Dev Edmonton July 2023 JS/Ruby/Python Meetup",
-			Href:        "https://github.com/atridadl/devedmonton-july-2023",
-			Tags:        []string{"astro", "ssr"},
-			Date:        "July 06, 2023",
-		},
-		{
 			Name:        "Hypermedia as the engine of application state - an Introduction",
 			Description: "A talk on building reactive websites using tools like HTMX instead of JSON + JS. Will be presented at the Dev Edmonton Fabruary 2024 JS/Ruby/Python Meetup",
 			Href:        "/public/files/hypermedia_talk_atridad.pdf",
