@@ -11,11 +11,23 @@ Atridad Lahiji // Projects
 {{end}}
 
 {{define "main"}}
+
+{{if .Projects}}
 <section class="flex flex-row flex-wrap gap-2 justify-center align-middle">
-  {{range .Projects}}
-  {{template "cardlinks" .}}
-  {{end}}
+    {{range .Projects}}
+    {{template "cardlinks" .}}
+    {{end}}
 </section>
+{{end}}
+
+{{if not .Projects}}
+<section class="flex flex-row flex-wrap gap-2 justify-center align-middle">
+    <h2 class="text-2xl font-extrabold tracking-tight text-white sm:text-[2rem]">
+      Nothing to see here (yet)!
+    </h2>
+</section>
+{{end}}
+
 {{end}}
 
 {{define "foot"}}

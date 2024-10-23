@@ -1,6 +1,6 @@
 module atri.dad
 
-go 1.23.1
+go 1.23
 
 require (
 	github.com/alecthomas/chroma/v2 v2.14.0

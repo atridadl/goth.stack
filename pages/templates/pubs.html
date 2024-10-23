@@ -1,9 +1,9 @@
 {{define "title"}}
-Atridad Lahiji // Tools
+Atridad Lahiji // Publications
 {{end}}
 
 {{define "headercontent"}}
-Atridad Lahiji // Tools
+Atridad Lahiji // Publications
 {{end}}
 
 {{define "head"}}
@@ -12,15 +12,15 @@ Atridad Lahiji // Tools
 
 {{define "main"}}
 
-{{if .Tools}}
+{{if .Pubs}}
 <section class="flex flex-row flex-wrap gap-2 justify-center align-middle">
-    {{range .Tools}}
-    {{template "cardlinks" .}}
-    {{end}}
+  {{range .Pubs}}
+  {{template "cardlinks" .}}
+  {{end}}
 </section>
 {{end}}
 
-{{if not .Tools}}
+{{if not .Pubs}}
 <section class="flex flex-row flex-wrap gap-2 justify-center align-middle">
     <h2 class="text-2xl font-extrabold tracking-tight text-white sm:text-[2rem]">
       Nothing to see here (yet)!

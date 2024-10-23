@@ -11,11 +11,23 @@ Atridad Lahiji // Talks
 {{end}}
 
 {{define "main"}}
+
+{{if .Talks}}
 <section class="flex flex-row flex-wrap gap-2 justify-center align-middle">
   {{range .Talks}}
   {{template "cardlinks" .}}
   {{end}}
 </section>
+{{end}}
+
+{{if not .Talks}}
+<section class="flex flex-row flex-wrap gap-2 justify-center align-middle">
+    <h2 class="text-2xl font-extrabold tracking-tight text-white sm:text-[2rem]">
+      Nothing to see here (yet)!
+    </h2>
+</section>
+{{end}}
+
 {{end}}
 
 {{define "foot"}}
