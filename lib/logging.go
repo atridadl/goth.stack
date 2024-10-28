@@ -1,29 +1,41 @@
 package lib
 
 import (
-	"github.com/fatih/color"
+	"github.com/gookit/color"
 )
 
 // Error logging
-var red = color.New(color.FgRed, color.Bold)
-var LogError = red
+var LogError = color.Style{
+	color.FgRed,
+	color.OpBold,
+}
 
 // Info logging
-var cyan = color.New(color.FgCyan, color.Bold)
-var LogInfo = cyan
+var LogInfo = color.Style{
+	color.FgCyan,
+	color.OpBold,
+}
 
 // Success logging
-var green = color.New(color.FgGreen, color.Bold)
-var LogSuccess = green
+var LogSuccess = color.Style{
+	color.FgGreen,
+	color.OpBold,
+}
 
 // Warning logging
-var yellow = color.New(color.FgYellow, color.Bold)
-var LogWarning = yellow
+var LogWarning = color.Style{
+	color.FgYellow,
+	color.OpBold,
+}
 
 // Debug logging
-var magenta = color.New(color.FgMagenta, color.Bold)
-var LogDebug = magenta
+var LogDebug = color.Style{
+	color.FgMagenta,
+	color.OpBold,
+}
 
 // Custom logging
-var white = color.New(color.FgWhite, color.Bold)
-var LogCustom = white
+var LogCustom = color.Style{
+	color.FgWhite,
+	color.OpBold,
+}
