@@ -6,6 +6,7 @@ require (
 	github.com/alecthomas/chroma/v2 v2.14.0
 	github.com/swaggo/echo-swagger v1.4.1
 	github.com/swaggo/swag v1.16.4
+	golang.org/x/image v0.21.0
 )
 
 require (
@@ -25,7 +26,6 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect
 	github.com/xo/terminfo v0.0.0-20220910002029-abceb7e1c41e // indirect
-	golang.org/x/image v0.21.0 // indirect
 	golang.org/x/net v0.30.0 // indirect
 	golang.org/x/text v0.19.0 // indirect
 	golang.org/x/time v0.7.0 // indirect
@@ -34,7 +34,6 @@ require (
 )
 
 require (
-	github.com/disintegration/imaging v1.6.2
 	github.com/gookit/color v1.5.4
 	github.com/gorilla/feeds v1.2.0
 	github.com/joho/godotenv v1.5.1
