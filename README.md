@@ -3,7 +3,7 @@
 A modern web application stack combining:
 - Go (Backend)
 - HTMX (Frontend Interactivity)
-- Tailwind CSS (Styling)
+- Tailwind CSS + DaisyUI (Styling)
 
 ## Features
 - Server-Side Rendering
