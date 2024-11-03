@@ -4,7 +4,7 @@
 #
 
 app = 'atridotdad'
-primary_region = 'sea'
+primary_region = 'ord'
 
 [build]
 
