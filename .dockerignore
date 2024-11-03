@@ -3,6 +3,11 @@
 **/airbin
 **/tmp
 **/*.rdb
+.git
+.gitignore
+.dockerignore
+Dockerfile
+README.md
 stylegen
 fly.toml
 tailwind.config.*.js
