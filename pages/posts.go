@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	contentfs "atri.dad/content"
-	"atri.dad/lib"
+	contentfs "goth.stack/content"
+	"goth.stack/lib"
 	"github.com/labstack/echo/v4"
 )
 

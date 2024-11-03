@@ -6,8 +6,8 @@ import (
 	"io/fs"
 	"net/http"
 
-	contentfs "atri.dad/content"
-	"atri.dad/lib"
+	contentfs "goth.stack/content"
+	"goth.stack/lib"
 	chromahtml "github.com/alecthomas/chroma/v2/formatters/html"
 	"github.com/labstack/echo/v4"
 	"github.com/yuin/goldmark"

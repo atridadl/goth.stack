@@ -2,8 +2,8 @@ basePath: /api
 host: localhost:3000
 info:
   contact: {}
-  description: This is the API for atri.dad
-  title: Atri.dad API
+  description: This is the API for GOTH Stack - Go + HTMX + Tailwind
+  title: GOTH Stack API
   version: "1.0"
 paths:
   /ping:

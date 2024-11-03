@@ -6,23 +6,23 @@ import (
 	"fmt"
 	"net/http"
 
-	"atri.dad/api"
-	"atri.dad/lib"
-	"atri.dad/pages"
+	"goth.stack/api"
+	"goth.stack/lib"
+	"goth.stack/pages"
 
-	_ "atri.dad/docs"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	echoSwagger "github.com/swaggo/echo-swagger"
+	_ "goth.stack/docs"
 )
 
 //go:embed public/*
 var PublicFS embed.FS
 
-// @title Atri.dad API
+// @title GOTH Stack API
 // @version 1.0
-// @description This is the API for atri.dad
+// @description This is the API for GOTH Stack - Go + HTMX + Tailwind
 // @host localhost:3000
 // @BasePath /api
 func main() {
@@ -49,9 +49,6 @@ func main() {
 
 	// Page routes
 	e.GET("/", pages.Home)
-	e.GET("/projects", pages.Projects)
-	e.GET("/talks", pages.Talks)
-	e.GET("/pubs", pages.Pubs)
 	e.GET("/posts", pages.Posts)
 	e.GET("/posts/:post", pages.Post)
 	e.GET("/tools", pages.Tools)

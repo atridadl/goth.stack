@@ -1,9 +1,9 @@
 {{define "title"}}
-Atridad Lahiji // Root
+GOTH Stack // Root
 {{end}}
 
 {{define "headercontent"}}
-Atridad Lahiji // Root
+{{template "title" .}}
 {{end}}
 
 {{define "head"}}
@@ -21,7 +21,7 @@ Atridad Lahiji // Root
 </h2>
 
 <span>
-  <h2 class="mb-2 text-xl text-white sm:text-[1.5rem]">Places I exist:</h2>
+  <h2 class="mb-2 text-xl text-white sm:text-[1.5rem]">Links:</h2>
   <div class="flex flex-row flex-wrap items-center justify-center gap-4 text-center">
     {{range .Socials}}
     {{template "iconlinks" .}}
@@ -30,7 +30,7 @@ Atridad Lahiji // Root
 </span>
 
 <span>
-  <h2 class="mb-2 text-xl text-white sm:text-[1.5rem]">Stuff I Use:</h2>
+  <h2 class="mb-2 text-xl text-white sm:text-[1.5rem]">Tech Stack:</h2>
 
   <div class="flex flex-row flex-wrap items-center justify-center gap-4 text-center">
     {{range .Tech}}

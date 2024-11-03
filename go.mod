@@ -1,4 +1,4 @@
-module atri.dad
+module goth.stack
 
 go 1.23
 

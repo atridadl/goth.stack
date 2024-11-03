@@ -1,18 +1,30 @@
-# atri.dad
-This is my personal website!
+# GOTH Stack
 
-## Stack:
-- Backend: Golang + Echo
-- Rendering: Golang templates
-- Style: TailwindCSS + DaisyUI
-- Content format: Markdown
+A modern web application stack combining:
+- Go (Backend)
+- HTMX (Frontend Interactivity)
+- Tailwind CSS (Styling)
 
-## Requirements:
-- Golang 1.23.1
+## Features
+- Server-Side Rendering
+- Real-time capabilities with SSE
+- Built-in tools and utilities
+- API documentation with Swagger
+- Modern responsive design
+- Zero client-side JavaScript (optional)
 
-## Instructions:
-1. Run ```go get```
-2. Duplicate the .env.example file and call it .env
-3. Fill out the required .env values
-4. Run ```go install github.com/air-verse/air@latest``` to download Air for live reload
-5. Run ```air``` to start the dev server (macOS and Linux only)
+## Getting Started
+1. Clone this repository
+2. Copy `.env.example` to `.env`
+3. Run `go mod download`
+4. Start the server: `go run main.go`
+
+## API Documentation
+1. Install swag by running ```go install github.com/swaggo/swag/cmd/swag@latest```
+2. Visit `/api/swagger/index.html` after starting the server
+
+## Example Posts
+Check out the `/posts` route for blogging examples
+
+## License
+MIT

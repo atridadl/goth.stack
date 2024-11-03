@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"atri.dad/lib"
+	"goth.stack/lib"
 	"github.com/labstack/echo/v4"
 )
 

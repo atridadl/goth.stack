@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"atri.dad/lib"
 	"github.com/labstack/echo/v4"
+	"goth.stack/lib"
 )
 
 // SSE godoc

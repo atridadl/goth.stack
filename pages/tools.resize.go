@@ -1,8 +1,8 @@
 package pages
 
 import (
-	"atri.dad/lib"
 	"github.com/labstack/echo/v4"
+	"goth.stack/lib"
 )
 
 type ResizeProps struct {
@@ -22,12 +22,12 @@ func Resize(c echo.Context) error {
 			Name:        "Hypermedia as the engine of application state - an Introduction",
 			Description: "A talk on building reactive websites using tools like HTMX instead of JSON + JS. Will be presented at the Dev Edmonton Fabruary 2024 JS/Ruby/Python Meetup",
 			// Href:        lib.GeneratePublicURL("hypermedia_talk_atridad.pdf"),
-			Tags:        []string{"golang", "htmx", "ssr"},
-			Date:        "February 01, 2024",
+			Tags: []string{"golang", "htmx", "ssr"},
+			Date: "February 01, 2024",
 		},
 	}
 
-	props := TalkProps{
+	props := ResizeProps{
 		Talks: talks,
 	}
 

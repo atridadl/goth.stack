@@ -15,10 +15,10 @@ import (
 	"strings"
 	"time"
 
-	contentfs "atri.dad/content"
-	"atri.dad/lib"
 	"github.com/gorilla/feeds"
 	"github.com/labstack/echo/v4"
+	contentfs "goth.stack/content"
+	"goth.stack/lib"
 )
 
 func RSSFeedHandler(c echo.Context) error {

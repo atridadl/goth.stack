@@ -1,7 +1,7 @@
 package pages
 
 import (
-	"atri.dad/lib"
+	"goth.stack/lib"
 	"github.com/labstack/echo/v4"
 )
 

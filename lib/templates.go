@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"runtime"
 
-	templatefs "atri.dad/pages/templates"
+	templatefs "goth.stack/pages/templates"
 )
 
 func RenderTemplate(w http.ResponseWriter, layout string, partials []string, props interface{}) error {
